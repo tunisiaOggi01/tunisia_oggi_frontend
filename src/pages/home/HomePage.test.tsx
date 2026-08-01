@@ -3,7 +3,11 @@ import { MemoryRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { describe, it, expect, vi } from 'vitest';
 import { HomePage } from './HomePage';
+import { ToastProvider } from '../../components/common/Toast';
+import * as AuthContext from '../../context/AuthContext';
 import * as publicationsApi from '../../api/publications/public.api';
+
+vi.spyOn(AuthContext, 'useAuth').mockReturnValue({ user: null, isLoading: false, login: vi.fn(), logout: vi.fn(), refreshUser: vi.fn() });
 
 vi.spyOn(publicationsApi, 'fetchPublishedPublications').mockResolvedValue({
   data: [
@@ -15,11 +19,12 @@ vi.spyOn(publicationsApi, 'fetchPublishedPublications').mockResolvedValue({
       status: 'PUBLISHED',
       featuredImageUrl: 'https://example.com/hero.jpg',
       views: 10,
+      rankScore: 0,
       tags: [],
       publishedAt: '2026-07-01T00:00:00.000Z',
       createdAt: '2026-07-01T00:00:00.000Z',
       category: { id: 'c1', name: 'Culture', slug: 'culture', color: '#8B1E1E' },
-      author: { username: 'editor', imageUrl: null },
+      author: { id: 'u1', username: 'editor', imageUrl: null },
     },
     {
       id: '2',
@@ -29,11 +34,12 @@ vi.spyOn(publicationsApi, 'fetchPublishedPublications').mockResolvedValue({
       status: 'PUBLISHED',
       featuredImageUrl: null,
       views: 3,
+      rankScore: 0,
       tags: [],
       publishedAt: '2026-06-30T00:00:00.000Z',
       createdAt: '2026-06-30T00:00:00.000Z',
       category: { id: 'c2', name: 'Politics', slug: 'politics', color: '#1E3A8A' },
-      author: { username: 'editor', imageUrl: null },
+      author: { id: 'u1', username: 'editor', imageUrl: null },
     },
   ],
   total: 2,
@@ -45,9 +51,11 @@ function renderHomePage() {
   const queryClient = new QueryClient({ defaultOptions: { queries: { retry: false } } });
   return render(
     <QueryClientProvider client={queryClient}>
-      <MemoryRouter>
-        <HomePage />
-      </MemoryRouter>
+      <ToastProvider>
+        <MemoryRouter>
+          <HomePage />
+        </MemoryRouter>
+      </ToastProvider>
     </QueryClientProvider>,
   );
 }
@@ -57,9 +65,9 @@ describe('HomePage', () => {
     renderHomePage();
 
     await waitFor(() => {
-      expect(screen.getByText('New Cultural Hub Opens in Tunis')).toBeInTheDocument();
+      expect(screen.getAllByText('New Cultural Hub Opens in Tunis').length).toBeGreaterThanOrEqual(1);
     });
-    expect(screen.getByText('Economic reform package approved by parliament')).toBeInTheDocument();
-    expect(screen.getByText('ADVERTISEMENT')).toBeInTheDocument();
+    expect(screen.getAllByText('Economic reform package approved by parliament').length).toBeGreaterThanOrEqual(1);
+    expect(screen.getByText('Advertisement')).toBeInTheDocument();
   });
 });

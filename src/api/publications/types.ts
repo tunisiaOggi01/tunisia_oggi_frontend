@@ -9,11 +9,14 @@ export interface Publication {
   status: PublicationStatus;
   featuredImageUrl: string | null;
   views: number;
+  rankScore: number;
   tags: string[];
   publishedAt: string | null;
   createdAt: string;
   category: { id: string; name: string; slug: string; color: string };
-  author: { username: string; imageUrl: string | null };
+  author: { id: string; username: string; imageUrl: string | null };
+  reactionCount?: number;
+  userReaction?: string | null;
 }
 
 /** Generic page envelope returned by every paginated publications listing endpoint. */
@@ -22,4 +25,17 @@ export interface PaginatedPublications {
   total: number;
   page: number;
   pageSize: number;
+}
+
+export interface ViewResult {
+  viewed: boolean;
+  views?: number;
+  rankScore?: number;
+}
+
+export interface ReactionResult {
+  reacted: boolean;
+  type?: string;
+  reactionCount?: number;
+  unreacted?: boolean;
 }

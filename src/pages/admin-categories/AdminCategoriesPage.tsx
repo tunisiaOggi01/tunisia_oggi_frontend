@@ -1,9 +1,11 @@
+import { useTranslation } from 'react-i18next';
 import { useCategories } from '../../hooks/categories/useCategories';
 import { useCategoryMutations } from '../../hooks/categories/useCategoryMutations';
 import { AdminSidebar } from '../../components/admin/AdminSidebar';
 
 /** Admin CMS category management screen: table of categories with a colored dot, slug, count, and delete action. */
 export function AdminCategoriesPage() {
+  const { t } = useTranslation();
   const { data: categories } = useCategories();
   const { deleteCategory } = useCategoryMutations();
 
@@ -13,21 +15,21 @@ export function AdminCategoriesPage() {
       <div className="flex-1 p-8">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="font-serif text-3xl font-bold">Category Management</h1>
-            <p className="mt-1 text-sm text-gray-500">Organize and structure the editorial hierarchy.</p>
+            <h1 className="font-serif text-3xl font-bold">{t('admin.categories.pageTitle')}</h1>
+            <p className="mt-1 text-sm text-gray-500">{t('admin.categories.pageSubtitle')}</p>
           </div>
           <button type="button" className="rounded bg-brand px-4 py-2 text-sm text-white">
-            + New Category
+            {t('admin.categories.newCategory')}
           </button>
         </div>
 
         <table className="mt-6 w-full border border-gray-200 text-left text-sm">
           <thead className="bg-gray-50 text-xs uppercase text-gray-500">
             <tr>
-              <th className="px-4 py-3">Name</th>
-              <th className="px-4 py-3">Slug</th>
-              <th className="px-4 py-3">Article Count</th>
-              <th className="px-4 py-3">Actions</th>
+              <th className="px-4 py-3">{t('admin.categories.name')}</th>
+              <th className="px-4 py-3">{t('admin.categories.slug')}</th>
+              <th className="px-4 py-3">{t('admin.categories.articleCount')}</th>
+              <th className="px-4 py-3">{t('admin.categories.actions')}</th>
             </tr>
           </thead>
           <tbody>

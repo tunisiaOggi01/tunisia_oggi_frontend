@@ -27,13 +27,33 @@ export async function fetchPublicationStats(): Promise<PublicationStats> {
   return res.data;
 }
 
-/** GET /admin/publications — every status, paginated, optionally filtered by title search. */
+/** GET /admin/publications — every status, paginated, optionally filtered by title search or authorId. */
 export async function fetchAdminPublications(params: {
   page?: number;
   pageSize?: number;
   search?: string;
+  authorId?: string;
 }): Promise<PaginatedPublications> {
   const res = await apiClient.get('/admin/publications', { params });
+  return res.data;
+}
+
+/** GET /admin/publications/:id — single publication with category and author info. */
+export async function fetchAdminPublicationById(id: string): Promise<Publication> {
+  const res = await apiClient.get(`/admin/publications/${id}`);
+  return res.data;
+}
+
+/** PATCH /admin/publications/:id — updates title, body, status, etc. */
+export async function updatePublication(id: string, payload: Partial<{
+  title: string;
+  categoryId: string;
+  body: string;
+  featuredImageUrl?: string;
+  status: PublicationStatus;
+  scheduledAt?: string;
+}>): Promise<Publication> {
+  const res = await apiClient.patch(`/admin/publications/${id}`, payload);
   return res.data;
 }
 

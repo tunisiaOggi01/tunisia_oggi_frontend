@@ -4,6 +4,7 @@ import {
   fetchAdminPublications,
   deletePublication,
 } from '../../api/publications/admin.api';
+import { useAuth } from '../../context/AuthContext';
 
 /** Wraps the admin dashboard's stats + article-list + delete-mutation into one hook. */
 export function useAdminArticles(search: string) {
@@ -26,4 +27,14 @@ export function useAdminArticles(search: string) {
   }
 
   return { stats: statsQuery.data, articles: articlesQuery.data, handleDelete, refetch: invalidate };
+}
+
+/** Fetches the current authenticated user's publications for the profile page. */
+export function useMyPublications() {
+  const { user } = useAuth();
+  return useQuery({
+    queryKey: ['publications', 'mine'],
+    queryFn: () => fetchAdminPublications({ authorId: user!.id, pageSize: 50 }),
+    enabled: !!user,
+  });
 }

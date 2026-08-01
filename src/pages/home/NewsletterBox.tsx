@@ -1,25 +1,30 @@
+import { useTranslation } from 'react-i18next';
+
 /** Presentational-only newsletter signup card — not wired to a backend (Sprint 2 scope). */
 export function NewsletterBox() {
+  const { t } = useTranslation();
   return (
-    <div className="border border-gray-200 p-4">
-      <p className="text-xs font-semibold uppercase text-brand">Newsletter</p>
-      <p className="mt-1 text-sm text-gray-600">
-        The most important stories from Tunisia, delivered daily to your inbox.
+    <div className="border border-gray-200 bg-gray-50 p-6">
+      <h4 className="text-xs font-semibold uppercase tracking-wider text-brand">{t('components.newsletter.heading')}</h4>
+      <p className="mt-2 text-sm text-gray-600">
+        {t('components.newsletter.description')}
       </p>
-      <input
-        type="email"
-        placeholder="Email address"
-        disabled
-        className="mt-3 w-full rounded border border-gray-300 px-3 py-2 text-sm"
-      />
-      <button
-        type="button"
-        disabled
-        title="Newsletter signup is not available yet"
-        className="mt-2 w-full cursor-not-allowed rounded bg-brand py-2 text-sm text-white opacity-60"
-      >
-        SUBSCRIBE
-      </button>
+      <form className="mt-4 space-y-3">
+        <input
+          type="email"
+          placeholder={t('components.newsletter.emailPlaceholder')}
+          disabled
+          className="w-full border border-gray-300 bg-white p-3 text-sm outline-none transition-all focus:border-brand focus:ring-2 focus:ring-brand/10"
+        />
+        <button
+          type="button"
+          disabled
+          title={t('components.newsletter.notAvailable')}
+          className="w-full bg-brand px-4 py-3 text-xs font-semibold tracking-wider text-white opacity-60 transition-all"
+        >
+          {t('components.newsletter.subscribe')}
+        </button>
+      </form>
     </div>
   );
 }

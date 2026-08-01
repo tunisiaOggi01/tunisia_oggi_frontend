@@ -1,5 +1,5 @@
 import { apiClient } from '../client';
-import type { Publication, PaginatedPublications } from './types';
+import type { Publication, PaginatedPublications, ViewResult, ReactionResult } from './types';
 
 /** GET /publications — published articles only, optionally filtered by category/search. */
 export async function fetchPublishedPublications(params: {
@@ -12,7 +12,7 @@ export async function fetchPublishedPublications(params: {
   return res.data;
 }
 
-/** GET /publications/:slug — increments the view counter server-side. */
+/** GET /publications/:slug — does NOT increment view count. */
 export async function fetchPublicationBySlug(slug: string): Promise<Publication> {
   const res = await apiClient.get(`/publications/${slug}`);
   return res.data;
@@ -21,5 +21,23 @@ export async function fetchPublicationBySlug(slug: string): Promise<Publication>
 /** GET /publications/:slug/related — up to 3 same-category articles, excluding itself. */
 export async function fetchRelatedPublications(slug: string): Promise<Publication[]> {
   const res = await apiClient.get(`/publications/${slug}/related`);
+  return res.data;
+}
+
+/** POST /publications/:id/view — records a unique view for the authenticated user. */
+export async function viewPublication(id: string): Promise<ViewResult> {
+  const res = await apiClient.post(`/publications/${id}/view`);
+  return res.data;
+}
+
+/** POST /publications/:id/react — adds or changes the current user's reaction. */
+export async function reactToPublication(id: string, type = 'LIKE'): Promise<ReactionResult> {
+  const res = await apiClient.post(`/publications/${id}/react`, { type });
+  return res.data;
+}
+
+/** DELETE /publications/:id/react — removes the current user's reaction. */
+export async function removeReaction(id: string): Promise<ReactionResult> {
+  const res = await apiClient.delete(`/publications/${id}/react`);
   return res.data;
 }

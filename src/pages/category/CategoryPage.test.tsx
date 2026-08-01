@@ -15,11 +15,12 @@ const spy = vi.spyOn(publicationsApi, 'fetchPublishedPublications').mockResolved
       status: 'PUBLISHED',
       featuredImageUrl: null,
       views: 1,
+      rankScore: 0,
       tags: [],
       publishedAt: '2026-07-01T00:00:00.000Z',
       createdAt: '2026-07-01T00:00:00.000Z',
       category: { id: 'c1', name: 'Politics', slug: 'politics', color: '#1E3A8A' },
-      author: { username: 'editor', imageUrl: null },
+      author: { id: 'u1', username: 'editor', imageUrl: null },
     },
   ],
   total: 1,
@@ -45,7 +46,7 @@ describe('CategoryPage', () => {
     renderCategoryPage('politics');
 
     await waitFor(() => {
-      expect(screen.getByText('New Parliamentary Session Opens with Focus on Economic Reform')).toBeInTheDocument();
+      expect(screen.getAllByText('New Parliamentary Session Opens with Focus on Economic Reform').length).toBeGreaterThanOrEqual(1);
     });
 
     expect(screen.getByRole('heading', { name: 'Politics' })).toBeInTheDocument();

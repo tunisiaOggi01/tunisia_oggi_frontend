@@ -4,8 +4,9 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { describe, it, expect, vi } from 'vitest';
 import { ArticleDetailPage } from './ArticleDetailPage';
 import * as publicationsApi from '../../api/publications/public.api';
+import { AuthContext } from '../../context/AuthContext';
 
-const publication = {
+vi.spyOn(publicationsApi, 'fetchPublicationBySlug').mockResolvedValue({
   id: '1',
   title: 'Economic Outlook: Growth Projected for Tunisia in 2025',
   slug: 'economic-outlook-2025',
@@ -13,26 +14,27 @@ const publication = {
   status: 'PUBLISHED' as const,
   featuredImageUrl: 'https://example.com/hero.jpg',
   views: 42,
+  rankScore: 0,
   tags: ['Economy', 'Tunisia2025'],
   publishedAt: '2026-07-01T00:00:00.000Z',
   createdAt: '2026-07-01T00:00:00.000Z',
   category: { id: 'c1', name: 'National', slug: 'national', color: '#8B1E1E' },
-  author: { username: 'Sami Mansour', imageUrl: null },
-};
-
-vi.spyOn(publicationsApi, 'fetchPublicationBySlug').mockResolvedValue(publication);
+  author: { id: 'u2', username: 'Sami Mansour', imageUrl: null },
+});
 vi.spyOn(publicationsApi, 'fetchRelatedPublications').mockResolvedValue([]);
 
 function renderArticleDetailPage() {
   const queryClient = new QueryClient({ defaultOptions: { queries: { retry: false } } });
   return render(
-    <QueryClientProvider client={queryClient}>
-      <MemoryRouter initialEntries={['/article/economic-outlook-2025']}>
-        <Routes>
-          <Route path="/article/:slug" element={<ArticleDetailPage />} />
-        </Routes>
-      </MemoryRouter>
-    </QueryClientProvider>,
+    <AuthContext.Provider value={{ user: null, isLoading: false, login: vi.fn() as any, logout: vi.fn() as any, refreshUser: vi.fn() as any }}>
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter initialEntries={['/article/economic-outlook-2025']}>
+          <Routes>
+            <Route path="/article/:slug" element={<ArticleDetailPage />} />
+          </Routes>
+        </MemoryRouter>
+      </QueryClientProvider>
+    </AuthContext.Provider>,
   );
 }
 

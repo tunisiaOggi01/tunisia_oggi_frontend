@@ -1,43 +1,106 @@
+import { useEffect } from 'react';
 import { usePublishedArticles } from '../../hooks/publications/usePublishedArticles';
+import { useInfiniteScroll } from '../../hooks/common/useInfiniteScroll';
+import { useAuth } from '../../context/AuthContext';
 import { FeaturedArticle } from '../../components/articles/FeaturedArticle';
 import { ArticleCard } from '../../components/articles/ArticleCard';
 import { NewsletterBox } from './NewsletterBox';
+import { HomePageSkeleton } from './HomePageSkeleton';
+import { useToast } from '../../components/common/Toast';
+import { Link } from 'react-router-dom';
+import { LoggedInHomePage } from './logged-in/LoggedInHomePage';
+import { useTranslation } from 'react-i18next';
 
-/** Homepage: hero article, latest-updates grid, and a trending sidebar. */
+/** Homepage: hero article, CTA, latest-updates grid with infinite scroll, and a trending sidebar. Renders a different layout when the user is logged in. */
 export function HomePage() {
-  const { data, isLoading } = usePublishedArticles({ page: 1, pageSize: 5 });
+  const { t } = useTranslation();
+  const { user } = useAuth();
+  const { data, isLoading, isError, fetchNextPage, hasNextPage, isFetchingNextPage } = usePublishedArticles({ pageSize: 5, enabled: !user });
+  const sentinelRef = useInfiniteScroll(fetchNextPage, !!hasNextPage && !isFetchingNextPage);
+  const { showToast } = useToast();
 
-  if (isLoading || !data) return <div className="p-8 text-center text-gray-500">Loading...</div>;
+  useEffect(() => {
+    if (isError) showToast(t('home.errorLoading'), 'error');
+  }, [isError, showToast]);
 
-  const [featured, ...rest] = data.data;
+  if (user) return <LoggedInHomePage />;
+  if (isLoading || !data) return <HomePageSkeleton />;
+
+  const articles = data.pages.flatMap((p) => p.data);
+  if (articles.length === 0) return <HomePageSkeleton />;
+
+  const [featured, ...rest] = articles;
+  const trending = [...articles].sort((a, b) => b.views - a.views).slice(0, 3);
 
   return (
-    <div className="mx-auto max-w-7xl px-6 py-8">
+    <main className="mx-auto max-w-7xl px-4 py-8 md:px-6">
       {featured && <FeaturedArticle publication={featured} />}
 
-      <div className="mt-8 bg-brand p-6 text-white">
-        <h2 className="font-serif text-xl font-bold">Become a Contributor</h2>
-        <p className="mt-1 text-sm">Share your perspective with our growing community of readers.</p>
+      <section className="mb-8 flex flex-col items-center justify-between gap-8 border border-gray-200 bg-brand p-8 text-white md:flex-row md:p-12">
+        <div>
+          <h2 className="font-serif text-xl font-bold">{t('home.becomeContributor')}</h2>
+          <p className="mt-1 text-sm opacity-90">
+            {t('home.contributorBody')}
+          </p>
+        </div>
+        <Link
+          to="/admin/articles"
+          className="whitespace-nowrap rounded-full bg-white px-8 py-3 text-sm font-bold text-brand transition-all hover:opacity-90 active:scale-95"
+        >
+          {t('home.createFirstArticle')}
+        </Link>
+      </section>
+
+      <div className="mb-4 grid grid-cols-1 md:grid-cols-3">
+        <div className="border-b border-gray-200 pb-2 md:col-span-2">
+          <h2 className="text-xs font-semibold uppercase tracking-widest text-brand">{t('home.latestUpdates')}</h2>
+        </div>
+        <div className="hidden border-b border-gray-200 pb-2 md:block">
+          <h2 className="text-xs font-semibold uppercase tracking-widest text-brand">{t('home.trendingNow')}</h2>
+        </div>
       </div>
 
-      <div className="mt-8 grid grid-cols-1 gap-8 md:grid-cols-3">
-        <div className="md:col-span-2">
-          <h2 className="mb-4 text-sm font-semibold uppercase text-gray-500">Latest Updates</h2>
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+      <div className="grid grid-cols-1 gap-8 md:grid-cols-12">
+        <div className="md:col-span-8">
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
             {rest.map((publication) => (
               <ArticleCard key={publication.id} publication={publication} />
             ))}
           </div>
+          <div ref={sentinelRef} className="h-4" />
+          {isFetchingNextPage && <p className="py-4 text-center text-sm text-gray-400">{t('home.loadingMore')}</p>}
         </div>
 
-        <aside>
-          <h2 className="mb-4 text-sm font-semibold uppercase text-gray-500">Trending Now</h2>
+        <aside className="space-y-8 md:col-span-4">
           <NewsletterBox />
-          <div className="mt-6 flex h-64 items-center justify-center border border-dashed border-gray-300 text-sm text-gray-400">
-            ADVERTISEMENT
+          <div className="space-y-6">
+            {trending.map((article, idx) => (
+              <Link
+                key={article.id}
+                to={`/article/${article.slug}`}
+                className="group flex cursor-pointer items-start gap-4"
+              >
+                <span className="font-serif text-3xl font-bold text-gray-300">
+                  {String(idx + 1).padStart(2, '0')}
+                </span>
+                <div>
+                  <h5 className="text-sm font-semibold text-gray-700 transition-colors group-hover:text-brand">
+                    {article.title}
+                  </h5>
+                  <p className="mt-1 text-xs text-gray-400">
+                    {article.publishedAt
+                      ? new Date(article.publishedAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
+                      : ''}
+                  </p>
+                </div>
+              </Link>
+            ))}
+          </div>
+          <div className="flex aspect-square items-center justify-center border border-dashed border-gray-300 bg-gray-100 text-xs font-semibold uppercase tracking-widest text-gray-400 opacity-50">
+            {t('home.advertisement')}
           </div>
         </aside>
       </div>
-    </div>
+    </main>
   );
 }

@@ -2,9 +2,9 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { describe, it, expect, vi } from 'vitest';
-import { CreateArticleModal } from './CreateArticleModal';
-import * as categoriesApi from '../../../api/categories/categories.api';
-import * as publicationsAdminApi from '../../../api/publications/admin.api';
+import { CreateArticleModal } from '../CreateArticleModal';
+import * as categoriesApi from '../../../../api/categories/categories.api';
+import * as publicationsAdminApi from '../../../../api/publications/admin.api';
 
 vi.spyOn(categoriesApi, 'fetchCategories').mockResolvedValue([
   { id: 'c1', name: 'National', slug: 'national', description: null, color: '#8B1E1E', articleCount: 0 },
@@ -31,7 +31,7 @@ describe('CreateArticleModal', () => {
     await user.type(screen.getByLabelText('Article Title'), 'Test Article');
     await waitFor(() => expect(screen.getByRole('option', { name: 'Politics' })).toBeInTheDocument());
     await user.selectOptions(screen.getByLabelText('Category'), 'Politics');
-    await user.type(screen.getByPlaceholderText('Start writing your story...'), 'Some article content');
+    await user.type(screen.getByPlaceholderText('Start writing your story…'), 'Some article content');
     await user.click(screen.getByRole('button', { name: 'Save Draft' }));
 
     await waitFor(() => {
