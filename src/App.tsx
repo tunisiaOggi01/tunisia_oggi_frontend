@@ -19,6 +19,7 @@ import { SubmitListingPage } from './pages/directory/SubmitListingPage';
 import { ListingDetailPage } from './pages/directory/listing-detail/ListingDetailPage';
 import { MyListingsPage } from './pages/my-listings/MyListingsPage';
 import { AdminAdsPage } from './pages/admin-ads/AdminAdsPage';
+import { SearchPage } from './pages/search/SearchPage';
 import { RequireAuth } from './components/admin/RequireAuth';
 import { HeardAboutModal } from './components/common/HeardAboutModal';
 import { useAuth } from './context/AuthContext';
@@ -55,6 +56,7 @@ export default function App() {
           <Route path="/admin/categories" element={<RequireAuth><AdminCategoriesPage /></RequireAuth>} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/directory" element={<DirectoryPage />} />
+          <Route path="/search" element={<SearchPage />} />
           <Route path="/directory/add" element={<SubmitListingPage />} />
           <Route path="/directory/:id" element={<ListingDetailPage />} />
           <Route path="/my-listings" element={<MyListingsPage />} />

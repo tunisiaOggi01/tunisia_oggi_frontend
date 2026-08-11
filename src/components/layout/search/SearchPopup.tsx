@@ -27,7 +27,7 @@ export function SearchPopup() {
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (query.trim()) navigate(`/?search=${encodeURIComponent(query.trim())}`);
+    if (query.trim()) navigate(`/search?q=${encodeURIComponent(query.trim())}`);
     setOpen(false);
     setQuery('');
   }
