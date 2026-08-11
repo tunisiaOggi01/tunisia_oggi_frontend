@@ -14,6 +14,10 @@ import { AdminCompleteProfilePage } from './pages/admin-complete-profile/AdminCo
 import { AdminArticlesPage } from './pages/admin-articles/AdminArticlesPage';
 import { AdminCategoriesPage } from './pages/admin-categories/AdminCategoriesPage';
 import { ProfilePage } from './pages/profile/ProfilePage';
+import { DirectoryPage } from './pages/directory/DirectoryPage';
+import { SubmitListingPage } from './pages/directory/SubmitListingPage';
+import { ListingDetailPage } from './pages/directory/listing-detail/ListingDetailPage';
+import { MyListingsPage } from './pages/my-listings/MyListingsPage';
 import { RequireAuth } from './components/admin/RequireAuth';
 import { HeardAboutModal } from './components/common/HeardAboutModal';
 import { useAuth } from './context/AuthContext';
@@ -49,6 +53,10 @@ export default function App() {
           <Route path="/admin/articles" element={<RequireAuth><AdminArticlesPage /></RequireAuth>} />
           <Route path="/admin/categories" element={<RequireAuth><AdminCategoriesPage /></RequireAuth>} />
           <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/directory" element={<DirectoryPage />} />
+          <Route path="/directory/add" element={<SubmitListingPage />} />
+          <Route path="/directory/:id" element={<ListingDetailPage />} />
+          <Route path="/my-listings" element={<MyListingsPage />} />
         </Routes>
       </main>
       {!isAuthPage && <Footer />}

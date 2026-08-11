@@ -32,6 +32,16 @@ export function Navbar() {
               </Link>
             );
           })}
+          <Link
+            to="/directory"
+            className={`border-b-2 pb-1 text-sm transition-colors duration-200 ${
+              pathname.startsWith('/directory')
+                ? 'border-brand font-bold text-brand'
+                : 'border-transparent text-gray-600 hover:border-brand hover:text-brand'
+            }`}
+          >
+            {t('nav.directory')}
+          </Link>
         </nav>
         <div className="flex items-center gap-3 shrink-0">
           <SearchPopup />

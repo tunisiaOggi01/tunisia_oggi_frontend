@@ -2,7 +2,6 @@ import { useState, useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../context/AuthContext';
-
 const LANGUAGES = [
   { code: 'en', label: 'EN' },
   { code: 'fr', label: 'FR' },
@@ -16,7 +15,6 @@ export function UserDropdown() {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
-
   useEffect(() => {
     function handleClick(e: MouseEvent) {
       if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
@@ -61,6 +59,11 @@ export function UserDropdown() {
             className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
             <span className="material-symbols-outlined text-sm">person</span>
             {t('nav.myProfile')}
+          </Link>
+          <Link to="/my-listings" onClick={() => setOpen(false)}
+            className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
+            <span className="material-symbols-outlined text-sm">storefront</span>
+            {t('nav.myListings')}
           </Link>
           {user.role === 'SUPER_ADMIN' && (
             <Link to="/admin" onClick={() => setOpen(false)}
