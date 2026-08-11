@@ -1,6 +1,7 @@
 import type { Publication } from '../../../api/publications/types';
 import { useTranslation } from 'react-i18next';
 import { AdSlot } from '../../../components/ads/AdSlot';
+import { NewsletterForm } from '../../../components/newsletter/NewsletterForm';
 
 /** Trending Now (numbered 1-3 with view counts) + Editor's Picks + Subscribe promo, with the sidebar ad slot. */
 export function SidebarSections({ trending }: { trending: Publication[] }) {
@@ -63,9 +64,7 @@ export function SidebarSections({ trending }: { trending: Publication[] }) {
           <p className="mb-4 text-base opacity-90">
             {t('home.sidebar.subscribeDailyBriefText')}
           </p>
-          <button className="bg-white px-4 py-2 text-sm font-semibold text-brand transition-opacity hover:opacity-90">
-            {t('home.sidebar.signMeUp')}
-          </button>
+          <NewsletterForm variant="dark" />
         </div>
         <div className="absolute -bottom-8 -right-8 opacity-10 transition-transform duration-700 group-hover:scale-110">
           <span className="material-symbols-outlined text-[120px]">newspaper</span>

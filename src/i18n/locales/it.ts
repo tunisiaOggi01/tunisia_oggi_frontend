@@ -168,7 +168,7 @@ export const it: Translations = {
     advertisement: 'Pubblicità',
   },
   components: {
-    newsletter: { heading: 'Newsletter', description: 'Le storie più importanti dalla Tunisia, consegnate ogni giorno nella tua casella di posta.', emailPlaceholder: 'Indirizzo email', notAvailable: 'L\'iscrizione alla newsletter non è ancora disponibile', subscribe: 'ISCRIVITI' },
+    newsletter: { heading: 'Newsletter', description: 'Le storie più importanti dalla Tunisia, consegnate ogni giorno nella tua casella di posta.', emailPlaceholder: 'Indirizzo email', notAvailable: 'L\'iscrizione alla newsletter non è ancora disponibile', subscribe: 'ISCRIVITI', subscribing: 'ISCRIZIONE…', success: 'Grazie! Iscrizione confermata.', duplicate: 'Questa email è già iscritta.', failed: 'Qualcosa è andato storto — riprova.' },
     articleCard: { minRead: '{{n}} min di lettura' },
     featuredArticle: { readMore: 'LEGGI TUTTO' },
     search: { placeholder: 'Cerca articoli…', go: 'Vai' },

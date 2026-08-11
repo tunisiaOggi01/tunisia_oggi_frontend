@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import type { Publication } from '../../../api/publications/types';
 import { useTranslation } from 'react-i18next';
+import { NewsletterForm } from '../../../components/newsletter/NewsletterForm';
 
 interface Props {
   mostRead: Publication[];
@@ -33,13 +34,7 @@ export function ArticleSidebar({ mostRead }: Props) {
       <div className="bg-brand p-6 text-white">
         <h3 className="mb-2 font-headline text-headline-md">{t('articleDetail.sidebar.morningBrief')}</h3>
         <p className="mb-6 text-body-md opacity-90">{t('articleDetail.sidebar.newsletterText')}</p>
-        <div className="space-y-3">
-          <input type="email" placeholder={t('articleDetail.sidebar.emailPlaceholder')}
-            className="w-full border-none bg-white px-4 py-3 text-gray-900 focus:ring-2 focus:ring-white/40" />
-          <button className="w-full bg-gray-900 py-3 text-label-sm uppercase tracking-widest text-white transition-colors hover:bg-black">
-            {t('articleDetail.sidebar.subscribe')}
-          </button>
-        </div>
+        <NewsletterForm variant="brand" />
         <p className="mt-4 text-[11px] opacity-70">{t('articleDetail.sidebar.termsDisclaimer')}</p>
       </div>
     </aside>

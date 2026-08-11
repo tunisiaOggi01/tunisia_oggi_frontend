@@ -166,7 +166,7 @@ export const en = {
     advertisement: 'Advertisement',
   },
   components: {
-    newsletter: { heading: 'Newsletter', description: 'The most important stories from Tunisia, delivered daily to your inbox.', emailPlaceholder: 'Email address', notAvailable: 'Newsletter signup is not available yet', subscribe: 'SUBSCRIBE' },
+    newsletter: { heading: 'Newsletter', description: 'The most important stories from Tunisia, delivered daily to your inbox.', emailPlaceholder: 'Email address', notAvailable: 'Newsletter signup is not available yet', subscribe: 'SUBSCRIBE', subscribing: 'SUBSCRIBING…', success: 'Thank you! You are now subscribed.', duplicate: 'This email is already subscribed.', failed: 'Something went wrong — please try again.' },
     articleCard: { minRead: '{{n}} min read' },
     featuredArticle: { readMore: 'READ MORE' },
     search: { placeholder: 'Search articles…', go: 'Go' },
