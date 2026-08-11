@@ -19,6 +19,7 @@ import { SubmitListingPage } from './pages/directory/SubmitListingPage';
 import { ListingDetailPage } from './pages/directory/listing-detail/ListingDetailPage';
 import { MyListingsPage } from './pages/my-listings/MyListingsPage';
 import { AdminAdsPage } from './pages/admin-ads/AdminAdsPage';
+import { AdminNewsletterPage } from './pages/admin-newsletter/AdminNewsletterPage';
 import { SearchPage } from './pages/search/SearchPage';
 import { RequireAuth } from './components/admin/RequireAuth';
 import { HeardAboutModal } from './components/common/HeardAboutModal';
@@ -61,6 +62,7 @@ export default function App() {
           <Route path="/directory/:id" element={<ListingDetailPage />} />
           <Route path="/my-listings" element={<MyListingsPage />} />
           <Route path="/admin/ads" element={<RequireAuth><AdminAdsPage /></RequireAuth>} />
+          <Route path="/admin/newsletter" element={<RequireAuth><AdminNewsletterPage /></RequireAuth>} />
         </Routes>
       </main>
       {!isAuthPage && <Footer />}
