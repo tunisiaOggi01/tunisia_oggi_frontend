@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import { formatDate } from '../../../utils/formatDate';
 import type { NewsletterSubscriber } from '../../../api/newsletter/admin.api';
 
 /** Subscribers table: email, confirmation state, subscription date, soft-delete action. */
@@ -11,7 +12,7 @@ export function SubscribersTable({
   removingId?: string;
   onRemove: (id: string) => void;
 }) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   return (
     <div className="overflow-x-auto border border-gray-200 bg-white">
@@ -20,7 +21,7 @@ export function SubscribersTable({
           <tr>
             <th className="px-4 py-3">{t('admin.newsletter.email')}</th>
             <th className="px-4 py-3">{t('admin.newsletter.status')}</th>
-            <th className="px-4 py-3">{t('admin.newsletter.date')}</th>
+            <th className="hidden px-4 py-3 sm:table-cell">{t('admin.newsletter.date')}</th>
             <th className="px-4 py-3 text-right">{t('admin.newsletter.actions')}</th>
           </tr>
         </thead>
@@ -33,7 +34,7 @@ export function SubscribersTable({
                   {t(s.confirmedAt ? 'admin.newsletter.confirmed' : 'admin.newsletter.pending')}
                 </span>
               </td>
-              <td className="px-4 py-3 text-gray-500">{new Date(s.subscribedAt).toLocaleDateString()}</td>
+              <td className="hidden px-4 py-3 text-gray-500 sm:table-cell">{formatDate(s.subscribedAt, i18n.language)}</td>
               <td className="px-4 py-3 text-right">
                 <button
                   type="button"
