@@ -4,8 +4,9 @@ import { useInfiniteScroll } from '../../hooks/common/useInfiniteScroll';
 import { useAuth } from '../../context/AuthContext';
 import { FeaturedArticle } from '../../components/articles/FeaturedArticle';
 import { ArticleCard } from '../../components/articles/ArticleCard';
-import { NewsletterBox } from './NewsletterBox';
 import { HomePageSkeleton } from './HomePageSkeleton';
+import { AdStrip } from '../../components/ads/AdStrip';
+import { HomeSidebar } from './sections/HomeSidebar';
 import { useToast } from '../../components/common/Toast';
 import { Link } from 'react-router-dom';
 import { LoggedInHomePage } from './logged-in/LoggedInHomePage';
@@ -35,6 +36,7 @@ export function HomePage() {
   return (
     <main className="mx-auto max-w-7xl px-4 py-8 md:px-6">
       {featured && <FeaturedArticle publication={featured} />}
+      <AdStrip />
 
       <section className="mb-8 flex flex-col items-center justify-between gap-8 border border-gray-200 bg-brand p-8 text-white md:flex-row md:p-12">
         <div>
@@ -71,35 +73,7 @@ export function HomePage() {
           {isFetchingNextPage && <p className="py-4 text-center text-sm text-gray-400">{t('home.loadingMore')}</p>}
         </div>
 
-        <aside className="space-y-8 md:col-span-4">
-          <NewsletterBox />
-          <div className="space-y-6">
-            {trending.map((article, idx) => (
-              <Link
-                key={article.id}
-                to={`/article/${article.slug}`}
-                className="group flex cursor-pointer items-start gap-4"
-              >
-                <span className="font-serif text-3xl font-bold text-gray-300">
-                  {String(idx + 1).padStart(2, '0')}
-                </span>
-                <div>
-                  <h5 className="text-sm font-semibold text-gray-700 transition-colors group-hover:text-brand">
-                    {article.title}
-                  </h5>
-                  <p className="mt-1 text-xs text-gray-400">
-                    {article.publishedAt
-                      ? new Date(article.publishedAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
-                      : ''}
-                  </p>
-                </div>
-              </Link>
-            ))}
-          </div>
-          <div className="flex aspect-square items-center justify-center border border-dashed border-gray-300 bg-gray-100 text-xs font-semibold uppercase tracking-widest text-gray-400 opacity-50">
-            {t('home.advertisement')}
-          </div>
-        </aside>
+        <HomeSidebar trending={trending} />
       </div>
     </main>
   );

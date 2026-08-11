@@ -128,6 +128,11 @@ export const fr: Translations = {
     forgotPassword: { heroHeading: 'Un Ponte tra le Culture', heroSubtitle: 'Célébrer la connexion vibrante entre l\'Italie et la Tunisie.', pageTitle: 'Réinitialiser le mot de passe', instructions: 'Entrez votre adresse email et nous vous enverrons un code de réinitialisation unique.', emailLabel: 'Adresse email', emailPlaceholder: 'name@tunisiaoggi.com', sending: 'Envoi en cours…', submit: 'Envoyer le code', failed: 'Une erreur est survenue', backToLogin: 'Retour à la connexion', securityFooter: 'Passerelle d\'administration chiffrée 256 bits' },
     resetPassword: { siteName: 'Tunisia Oggi', successHeading: 'Réinitialisation terminée', successText: 'Redirection vers la connexion…', invalidSession: 'Session invalide', invalidSessionText: 'Veuillez recommencer le processus de réinitialisation depuis le début.', tryAgain: 'Réessayer', heroHeading: 'Un Ponte tra le Culture', heroSubtitle: 'Célébrer la connexion vibrante entre l\'Italie et la Tunisie.', pageTitle: 'Entrer le code', instructions: 'Un code à 6 chiffres a été envoyé à {{email}}. Saisissez-le ci-dessous avec votre nouveau mot de passe.', otpLabel: 'Code à usage unique', otpPlaceholder: '000000', newPasswordLabel: 'Nouveau mot de passe', passwordPlaceholder: '••••••••', confirmPasswordLabel: 'Confirmer le mot de passe', validationMinLength: 'Le mot de passe doit comporter au moins 8 caractères', validationMismatch: 'Les mots de passe ne correspondent pas', validationExpired: 'Session expirée — veuillez recommencer.', failed: 'Échec de la réinitialisation', resetting: 'Réinitialisation…', submit: 'Réinitialiser', resend: 'Renvoyer le code', securityFooter: 'Passerelle d\'administration chiffrée 256 bits' },
     categories: { pageTitle: 'Gestion des catégories', pageSubtitle: 'Organisez et structurez la hiérarchie éditoriale.', newCategory: '+ Nouvelle catégorie', name: 'Nom', slug: 'Slug', articleCount: 'Nombre d\'articles', actions: 'Actions' },
+    ads: { pageTitle: 'Gestion des publicités', pageSubtitle: 'Créez des annonces sponsorisées et suivez leurs performances.', newAd: '+ Nouvelle annonce', allPlacements: 'Toutes les positions', scheduled: 'Programmées', active: 'Actives', expired: 'Expirées', totalImpressions: 'Impressions', totalClicks: 'Clics', colTitle: 'Titre', colPlacement: 'Position', colPeriod: 'Période', colStatus: 'Statut', colImpressions: 'Impressions', colClicks: 'Clics', statusProgrammata: 'PROGRAMMÉE', statusAttiva: 'ACTIVE', statusScaduta: 'EXPIRÉE', formTitle: 'Titre de l\'annonce', formImageUrl: 'URL de l\'image', formLinkUrl: 'URL du lien', formPlacement: 'Position', formAdvertiserName: 'Nom de l\'annonceur (optionnel)', formAdvertiserEmail: 'Email de l\'annonceur (optionnel)', formStartDate: 'Date de début', formEndDate: 'Date de fin', formDateError: 'La date de fin doit suivre la date de début', createFailed: 'Impossible de créer l\'annonce — vérifiez les informations.', create: 'Créer', creating: 'Création…' },
+  },
+  ads: {
+    label: 'PUBLICITÉ',
+    promoted: 'En avant',
   },
   profile: {
     staff: 'ÉQUIPE',
@@ -169,7 +174,7 @@ export const fr: Translations = {
     search: { placeholder: 'Rechercher des articles…', go: 'OK' },
     heardAbout: { heading: 'Bienvenue sur Tunisia Oggi !', question: 'Comment nous avez-vous connus ?', socialMedia: 'Réseaux sociaux', friendOrColleague: 'Ami ou collègue', googleSearch: 'Recherche Google', advertisement: 'Publicité', newsArticle: 'Article de presse', other: 'Autre', skip: 'Passer', saving: 'Enregistrement…', submit: 'Envoyer' },
     requireAuth: { loading: 'Chargement…' },
-    adminSidebar: { brand: 'Tunisia Oggi', subtitle: 'CMS Tunisia Oggi', articles: 'Articles', categories: 'Catégories' },
+    adminSidebar: { brand: 'Tunisia Oggi', subtitle: 'CMS Tunisia Oggi', articles: 'Articles', categories: 'Catégories', ads: 'Publicités' },
     createArticleModal: { preview: 'Aperçu', editArticle: 'Modifier l\'article', createNewArticle: 'Créer un article', untitled: '(sans titre)', noContent: 'Aucun contenu pour le moment.', backToEdit: 'Retour à l\'édition', cancel: 'Annuler', previewBtn: 'Aperçu', saveDraft: 'Enregistrer le brouillon', publishNow: 'Publier maintenant' },
     articleForm: { title: 'Titre de l\'article', titlePlaceholder: 'Entrez un titre accrocheur…', category: 'Catégorie', selectCategory: 'Sélectionnez une catégorie', featuredImage: 'Image à la une', uploading: 'Téléchargement…', uploadComplete: 'Téléchargement terminé', uploadFailed: 'Échec du téléchargement', content: 'Contenu', contentPlaceholder: 'Commencez à écrire votre histoire…' },
   },
@@ -182,6 +187,6 @@ export const fr: Translations = {
     terms: 'Conditions d\'utilisation',
     copyright: '© 2026 Tunisia Oggi. Tous droits réservés.',
   },
-  common: { saving: 'Enregistrement…', loading: 'Chargement…', failedToSave: 'Échec de l\'enregistrement', language: 'Langue' },
+  common: { saving: 'Enregistrement…', loading: 'Chargement…', failedToSave: 'Échec de l\'enregistrement', language: 'Langue', delete: 'Supprimer', confirm: 'Confirmer', cancel: 'Annuler', previous: 'Préc', next: 'Suiv' },
   comments: { heading: 'Commentaires', writeComment: 'Écrire un commentaire…', writeReply: 'Écrire une réponse…', post: 'Publier', reply: 'Répondre', edit: 'Modifier', save: 'Enregistrer', cancel: 'Annuler', delete: 'Supprimer', loading: 'Chargement des commentaires…', none: 'Aucun commentaire. Soyez le premier !' },
 };

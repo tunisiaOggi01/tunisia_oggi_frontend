@@ -128,6 +128,11 @@ export const it: Translations = {
     forgotPassword: { heroHeading: 'Un Ponte tra le Culture', heroSubtitle: 'Celebrando il vibrante legame tra Italia e Tunisia.', pageTitle: 'Reimposta password', instructions: 'Inserisci il tuo indirizzo email e ti invieremo un codice di reset una tantum.', emailLabel: 'Indirizzo email', emailPlaceholder: 'name@tunisiaoggi.com', sending: 'Invio…', submit: 'Invia codice', failed: 'Qualcosa è andato storto', backToLogin: 'Torna al login', securityFooter: 'Gateway di amministrazione crittografato 256-bit' },
     resetPassword: { siteName: 'Tunisia Oggi', successHeading: 'Reimpostazione completata', successText: 'Reindirizzamento al login…', invalidSession: 'Sessione non valida', invalidSessionText: 'Riavvia il processo di reimpostazione della password dall\'inizio.', tryAgain: 'Riprova', heroHeading: 'Un Ponte tra le Culture', heroSubtitle: 'Celebrando il vibrante legame tra Italia e Tunisia.', pageTitle: 'Inserisci codice', instructions: 'Un codice a 6 cifre è stato inviato a {{email}}. Inseriscilo qui sotto insieme alla tua nuova password.', otpLabel: 'Codice monouso', otpPlaceholder: '000000', newPasswordLabel: 'Nuova password', passwordPlaceholder: '••••••••', confirmPasswordLabel: 'Conferma password', validationMinLength: 'La password deve essere di almeno 8 caratteri', validationMismatch: 'Le password non coincidono', validationExpired: 'Sessione scaduta — riavvia il processo.', failed: 'Reimpostazione password fallita', resetting: 'Reimpostazione…', submit: 'Reimposta password', resend: 'Invia di nuovo il codice', securityFooter: 'Gateway di amministrazione crittografato 256-bit' },
     categories: { pageTitle: 'Gestione categorie', pageSubtitle: 'Organizza e struttura la gerarchia editoriale.', newCategory: '+ Nuova categoria', name: 'Nome', slug: 'Slug', articleCount: 'Numero articoli', actions: 'Azioni' },
+    ads: { pageTitle: 'Gestione pubblicità', pageSubtitle: 'Crea annunci sponsorizzati e monitora le loro performance.', newAd: '+ Nuovo annuncio', allPlacements: 'Tutte le posizioni', scheduled: 'Programmate', active: 'Attive', expired: 'Scadute', totalImpressions: 'Impressioni', totalClicks: 'Clic', colTitle: 'Titolo', colPlacement: 'Posizione', colPeriod: 'Periodo', colStatus: 'Stato', colImpressions: 'Impressioni', colClicks: 'Clic', statusProgrammata: 'PROGRAMMATA', statusAttiva: 'ATTIVA', statusScaduta: 'SCADUTA', formTitle: 'Titolo annuncio', formImageUrl: 'URL immagine', formLinkUrl: 'URL link', formPlacement: 'Posizione', formAdvertiserName: 'Nome inserzionista (opzionale)', formAdvertiserEmail: 'Email inserzionista (opzionale)', formStartDate: 'Data inizio', formEndDate: 'Data fine', formDateError: 'La data di fine deve seguire la data di inizio', createFailed: 'Impossibile creare l\'annuncio — controlla i dati.', create: 'Crea', creating: 'Creazione…' },
+  },
+  ads: {
+    label: 'PUBBLICITÀ',
+    promoted: 'In evidenza',
   },
   profile: {
     staff: 'STAFF',
@@ -169,7 +174,7 @@ export const it: Translations = {
     search: { placeholder: 'Cerca articoli…', go: 'Vai' },
     heardAbout: { heading: 'Benvenuto su Tunisia Oggi!', question: 'Come ci hai conosciuto?', socialMedia: 'Social Media', friendOrColleague: 'Amico o collega', googleSearch: 'Ricerca Google', advertisement: 'Pubblicità', newsArticle: 'Articolo di giornale', other: 'Altro', skip: 'Salta', saving: 'Salvataggio…', submit: 'Invia' },
     requireAuth: { loading: 'Caricamento…' },
-    adminSidebar: { brand: 'Tunisia Oggi', subtitle: 'CMS Tunisia Oggi', articles: 'Articoli', categories: 'Categorie' },
+    adminSidebar: { brand: 'Tunisia Oggi', subtitle: 'CMS Tunisia Oggi', articles: 'Articoli', categories: 'Categorie', ads: 'Pubblicità' },
     createArticleModal: { preview: 'Anteprima', editArticle: 'Modifica articolo', createNewArticle: 'Crea nuovo articolo', untitled: '(senza titolo)', noContent: 'Nessun contenuto ancora.', backToEdit: 'Torna alla modifica', cancel: 'Annulla', previewBtn: 'Anteprima', saveDraft: 'Salva bozza', publishNow: 'Pubblica ora' },
     articleForm: { title: 'Titolo articolo', titlePlaceholder: 'Inserisci un titolo accattivante…', category: 'Categoria', selectCategory: 'Seleziona una categoria', featuredImage: 'Immagine in evidenza', uploading: 'Caricamento…', uploadComplete: 'Caricamento completato', uploadFailed: 'Caricamento fallito', content: 'Contenuto', contentPlaceholder: 'Inizia a scrivere la tua storia…' },
   },
@@ -182,6 +187,6 @@ export const it: Translations = {
     terms: 'Termini di servizio',
     copyright: '© 2026 Tunisia Oggi. Tutti i diritti riservati.',
   },
-  common: { saving: 'Salvataggio…', loading: 'Caricamento…', failedToSave: 'Salvataggio fallito', language: 'Lingua' },
+  common: { saving: 'Salvataggio…', loading: 'Caricamento…', failedToSave: 'Salvataggio fallito', language: 'Lingua', delete: 'Elimina', confirm: 'Conferma', cancel: 'Annulla', previous: 'Prec', next: 'Succ' },
   comments: { heading: 'Commenti', writeComment: 'Scrivi un commento…', writeReply: 'Scrivi una risposta…', post: 'Pubblica', reply: 'Rispondi', edit: 'Modifica', save: 'Salva', cancel: 'Annulla', delete: 'Elimina', loading: 'Caricamento commenti…', none: 'Ancora nessun commento. Sii il primo!' },
 };

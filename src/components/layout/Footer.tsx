@@ -1,10 +1,14 @@
 import { useTranslation } from 'react-i18next';
+import { AdSlot } from '../ads/AdSlot';
 
-/** Site footer: brand mark, tagline, links, social icons, and copyright. */
+/** Site footer: brand mark, tagline, links, social icons, copyright, and the footer ad slot. */
 export function Footer() {
   const { t } = useTranslation();
   return (
     <footer className="border-t border-gray-200 bg-white py-8">
+      <div className="mx-auto mb-8 max-w-7xl px-6">
+        <AdSlot placement="FOOTER" />
+      </div>
       <div className="mx-auto flex max-w-7xl flex-col items-center gap-8 px-6 md:flex-row md:justify-between">
         <div className="flex flex-col items-center gap-2 md:items-start">
           <p className="font-serif text-2xl font-bold uppercase tracking-tighter text-brand">
