@@ -10,6 +10,7 @@ import { ArticleActionBar } from './sections/ArticleActionBar';
 import { ArticleBody } from './sections/ArticleBody';
 import { ArticleSidebar } from './sections/ArticleSidebar';
 import { CommentSection } from '../../components/comments/CommentSection';
+import { PageMeta } from '../../components/seo/PageMeta';
 import type { Publication } from '../../api/publications/types';
 import { useTranslation } from 'react-i18next';
 
@@ -44,6 +45,7 @@ export function ArticleDetailPage() {
 
   return (
     <main className="mx-auto max-w-7xl px-4 py-8 md:px-8">
+      <PageMeta title={`${pub.title} — Tunisia Oggi`} description={pub.body.replace(/\s+/g, ' ').slice(0, 160)} />
       <nav aria-label="Breadcrumb" className="mb-4 flex items-center gap-2 text-label-sm text-gray-500">
         <Link to="/" className="hover:text-brand transition-colors">{t('articleDetail.home')}</Link>
         <span className="material-symbols-outlined text-[16px]">chevron_right</span>

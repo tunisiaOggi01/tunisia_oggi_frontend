@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useListings } from '../../hooks/listings/useListings';
 import { ListingCard } from '../../components/listings/ListingCard';
+import { PageMeta } from '../../components/seo/PageMeta';
 import type { BusinessCategory } from '../../api/listings/types';
 
 const CATEGORY_FILTERS: BusinessCategory[] = [
@@ -26,6 +27,7 @@ export function DirectoryPage() {
 
   return (
     <main className="mx-auto max-w-7xl px-4 py-8 md:px-8">
+      <PageMeta title={t('directory.seoTitle')} description={t('directory.seoDescription')} />
       <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <div className="mb-4 h-1 w-16 bg-brand" />

@@ -15,6 +15,8 @@ export const it: Translations = {
     myListings: 'I miei annunci',
   },
   directory: {
+    seoTitle: 'Annuario delle imprese — Tunisia Oggi',
+    seoDescription: 'Trova imprese, ristoranti, studi legali e servizi affidabili in tutta la Tunisia.',
     title: 'Annuario delle imprese',
     subtitle: 'Trova fornitori di servizi affidabili in tutta la Tunisia.',
     addBusiness: 'Aggiungi la tua impresa',
@@ -80,6 +82,8 @@ export const it: Translations = {
     rejectedHint: 'La scheda non è stata accettata: inviane una nuova.',
   },
   home: {
+    seoTitle: 'Tunisia Oggi — Notizie per la comunità italiana in Tunisia',
+    seoDescription: 'Giornalismo indipendente in lingua italiana per la comunità italiana in Tunisia: politica, cultura, economia e notizie dalla comunità.',
     latestUpdates: 'Ultimi aggiornamenti',
     trendingNow: 'Tendenze',
     loadingMore: 'Caricamento…',
@@ -187,7 +191,7 @@ export const it: Translations = {
     newsletter: { heading: 'Newsletter', description: 'Le storie più importanti dalla Tunisia, consegnate ogni giorno nella tua casella di posta.', emailPlaceholder: 'Indirizzo email', notAvailable: 'L\'iscrizione alla newsletter non è ancora disponibile', subscribe: 'ISCRIVITI', subscribing: 'ISCRIZIONE…', success: 'Grazie! Iscrizione confermata.', duplicate: 'Questa email è già iscritta.', failed: 'Qualcosa è andato storto — riprova.' },
     articleCard: { minRead: '{{n}} min di lettura' },
     featuredArticle: { readMore: 'LEGGI TUTTO' },
-    search: { placeholder: 'Cerca articoli…', go: 'Vai' },
+    search: { placeholder: 'Cerca articoli…', go: 'Vai', seoTitle: 'Ricerca — Tunisia Oggi', seoDescription: 'Cerca articoli e schede dell\'annuario su Tunisia Oggi.' },
     heardAbout: { heading: 'Benvenuto su Tunisia Oggi!', question: 'Come ci hai conosciuto?', socialMedia: 'Social Media', friendOrColleague: 'Amico o collega', googleSearch: 'Ricerca Google', advertisement: 'Pubblicità', newsArticle: 'Articolo di giornale', other: 'Altro', skip: 'Salta', saving: 'Salvataggio…', submit: 'Invia' },
     requireAuth: { loading: 'Caricamento…' },
     adminSidebar: { brand: 'Tunisia Oggi', subtitle: 'CMS Tunisia Oggi', articles: 'Articoli', categories: 'Categorie', ads: 'Pubblicità', newsletter: 'Newsletter' },

@@ -13,6 +13,8 @@ export const en = {
     myListings: 'My Listings',
   },
   directory: {
+    seoTitle: 'Business Directory — Tunisia Oggi',
+    seoDescription: 'Find trusted businesses, restaurants, law firms and services across Tunisia.',
     title: 'Business Directory',
     subtitle: 'Find trusted service providers across Tunisia.',
     addBusiness: 'Add Your Business',
@@ -78,6 +80,8 @@ export const en = {
     rejectedHint: 'Your card was not accepted — please submit a new one.',
   },
   home: {
+    seoTitle: 'Tunisia Oggi — News for the Italian Community in Tunisia',
+    seoDescription: 'Independent Italian-language journalism for the Italian community in Tunisia: politics, culture, economy and community news.',
     latestUpdates: 'Latest Updates',
     trendingNow: 'Trending Now',
     loadingMore: 'Loading more…',
@@ -185,7 +189,7 @@ export const en = {
     newsletter: { heading: 'Newsletter', description: 'The most important stories from Tunisia, delivered daily to your inbox.', emailPlaceholder: 'Email address', notAvailable: 'Newsletter signup is not available yet', subscribe: 'SUBSCRIBE', subscribing: 'SUBSCRIBING…', success: 'Thank you! You are now subscribed.', duplicate: 'This email is already subscribed.', failed: 'Something went wrong — please try again.' },
     articleCard: { minRead: '{{n}} min read' },
     featuredArticle: { readMore: 'READ MORE' },
-    search: { placeholder: 'Search articles…', go: 'Go' },
+    search: { placeholder: 'Search articles…', go: 'Go', seoTitle: 'Search — Tunisia Oggi', seoDescription: 'Search articles and directory listings on Tunisia Oggi.' },
     heardAbout: { heading: 'Welcome to Tunisia Oggi!', question: 'How did you hear about us?', socialMedia: 'Social Media', friendOrColleague: 'Friend or Colleague', googleSearch: 'Google Search', advertisement: 'Advertisement', newsArticle: 'News Article', other: 'Other', skip: 'Skip', saving: 'Saving…', submit: 'Submit' },
     requireAuth: { loading: 'Loading…' },
     adminSidebar: { brand: 'Tunisia Oggi', subtitle: 'Tunisia Oggi CMS', articles: 'Articles', categories: 'Categories', ads: 'Ads', newsletter: 'Newsletter' },

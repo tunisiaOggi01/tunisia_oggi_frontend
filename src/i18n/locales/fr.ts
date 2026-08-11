@@ -15,6 +15,8 @@ export const fr: Translations = {
     myListings: 'Mes annonces',
   },
   directory: {
+    seoTitle: 'Annuaire des entreprises — Tunisia Oggi',
+    seoDescription: 'Trouvez des entreprises, restaurants, cabinets d\'avocats et services de confiance dans toute la Tunisie.',
     title: 'Annuaire des entreprises',
     subtitle: 'Trouvez des prestataires de confiance dans toute la Tunisie.',
     addBusiness: 'Ajouter votre entreprise',
@@ -80,6 +82,8 @@ export const fr: Translations = {
     rejectedHint: 'Votre fiche n\'a pas été acceptée — soumettez-en une nouvelle.',
   },
   home: {
+    seoTitle: 'Tunisia Oggi — Actualités pour la communauté italienne en Tunisie',
+    seoDescription: 'Journalisme indépendant en langue italienne pour la communauté italienne en Tunisie : politique, culture, économie et actualités communautaires.',
     latestUpdates: 'Dernières actualités',
     trendingNow: 'Tendances',
     loadingMore: 'Chargement…',
@@ -187,7 +191,7 @@ export const fr: Translations = {
     newsletter: { heading: 'Newsletter', description: 'Les informations les plus importantes de Tunisie, livrées quotidiennement dans votre boîte mail.', emailPlaceholder: 'Adresse email', notAvailable: 'L\'inscription à la newsletter n\'est pas encore disponible', subscribe: 'S\'ABONNER', subscribing: 'INSCRIPTION…', success: 'Merci ! Vous êtes inscrit.e.', duplicate: 'Cette adresse est déjà inscrite.', failed: 'Une erreur est survenue — réessayez.' },
     articleCard: { minRead: '{{n}} min de lecture' },
     featuredArticle: { readMore: 'LIRE LA SUITE' },
-    search: { placeholder: 'Rechercher des articles…', go: 'OK' },
+    search: { placeholder: 'Rechercher des articles…', go: 'OK', seoTitle: 'Recherche — Tunisia Oggi', seoDescription: 'Recherchez des articles et des fiches de l\'annuaire sur Tunisia Oggi.' },
     heardAbout: { heading: 'Bienvenue sur Tunisia Oggi !', question: 'Comment nous avez-vous connus ?', socialMedia: 'Réseaux sociaux', friendOrColleague: 'Ami ou collègue', googleSearch: 'Recherche Google', advertisement: 'Publicité', newsArticle: 'Article de presse', other: 'Autre', skip: 'Passer', saving: 'Enregistrement…', submit: 'Envoyer' },
     requireAuth: { loading: 'Chargement…' },
     adminSidebar: { brand: 'Tunisia Oggi', subtitle: 'CMS Tunisia Oggi', articles: 'Articles', categories: 'Catégories', ads: 'Publicités', newsletter: 'Newsletter' },

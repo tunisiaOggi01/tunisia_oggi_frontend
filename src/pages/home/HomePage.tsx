@@ -10,6 +10,7 @@ import { HomeSidebar } from './sections/HomeSidebar';
 import { useToast } from '../../components/common/Toast';
 import { Link } from 'react-router-dom';
 import { LoggedInHomePage } from './logged-in/LoggedInHomePage';
+import { PageMeta } from '../../components/seo/PageMeta';
 import { useTranslation } from 'react-i18next';
 
 /** Homepage: hero article, CTA, latest-updates grid with infinite scroll, and a trending sidebar. Renders a different layout when the user is logged in. */
@@ -35,6 +36,7 @@ export function HomePage() {
 
   return (
     <main className="mx-auto max-w-7xl px-4 py-8 md:px-6">
+      <PageMeta title={t('home.seoTitle')} description={t('home.seoDescription')} />
       {featured && <FeaturedArticle publication={featured} />}
       <AdStrip />
 

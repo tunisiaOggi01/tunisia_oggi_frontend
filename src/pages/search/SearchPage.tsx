@@ -5,6 +5,7 @@ import { useSearchResults } from '../../hooks/search/useSearchResults';
 import { ArticleCard } from '../../components/articles/ArticleCard';
 import { ListingCard } from '../../components/listings/ListingCard';
 import { SearchSidebar } from './sections/SearchSidebar';
+import { PageMeta } from '../../components/seo/PageMeta';
 /** Screen-10: combined search — article results (load-more), approved listings, category counts, sidebar ad. */
 export function SearchPage() {
   const { t } = useTranslation();
@@ -30,6 +31,7 @@ export function SearchPage() {
 
   return (
     <main className="mx-auto max-w-7xl px-4 py-8 md:px-8">
+      <PageMeta title={t('search.seoTitle')} description={t('search.seoDescription')} />
       <form onSubmit={submit} className="flex gap-2 border-b border-gray-200 pb-6">
         <input value={input} onChange={(e) => setInput(e.target.value)} placeholder={t('search.placeholder')}
           className="flex-1 border border-gray-300 px-4 py-3 text-sm focus:border-brand focus:outline-none"
