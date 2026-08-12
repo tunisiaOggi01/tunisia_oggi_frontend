@@ -55,6 +55,15 @@ export const it: Translations = {
     duplicateError: 'Esiste già un\'impresa con questo nome e numero di telefono.',
     failed: 'Invio fallito — controlla i dati e riprova.',
     loginNotice: 'Devi accedere per inviare la tua scheda aziendale.',
+    errors: {
+      businessNameRequired: 'Il nome dell\'impresa è obbligatorio',
+      businessNameTooLong: 'Il nome dell\'impresa non può superare 120 caratteri',
+      categoryRequired: 'Seleziona una categoria',
+      descriptionTooLong: 'La descrizione non può superare 2000 caratteri',
+      phoneInvalid: 'Inserisci un numero di telefono valido (es. +216 71 000 111)',
+      emailInvalid: 'Inserisci un indirizzo email valido',
+      websiteInvalid: 'Inserisci un URL valido (es. https://example.com)',
+    },
   },
   listingDetail: {
     notFound: 'Questa scheda non è disponibile.',

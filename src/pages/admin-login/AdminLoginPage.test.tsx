@@ -43,7 +43,8 @@ describe('AdminLoginPage', () => {
   it('renders a "Continue with Google" link pointing to the backend OAuth endpoint', () => {
     renderLoginPage();
     const link = screen.getByRole('link', { name: /continue with google/i });
-    expect(link).toHaveAttribute('href', 'http://localhost:3000/auth/google');
+    const apiUrl = import.meta.env.VITE_API_URL ?? 'http://localhost:3000';
+    expect(link).toHaveAttribute('href', `${apiUrl}/auth/google`);
   });
 
   it('renders the brand heading and security notice', () => {

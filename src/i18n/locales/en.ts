@@ -53,6 +53,15 @@ export const en = {
     duplicateError: 'A business with this name and phone number already exists.',
     failed: 'Submission failed — please check your entries and try again.',
     loginNotice: 'You need to log in to submit your business card.',
+    errors: {
+      businessNameRequired: 'Business name is required',
+      businessNameTooLong: 'Business name cannot exceed 120 characters',
+      categoryRequired: 'Select a category',
+      descriptionTooLong: 'Description cannot exceed 2000 characters',
+      phoneInvalid: 'Enter a valid phone number (e.g. +216 71 000 111)',
+      emailInvalid: 'Enter a valid email address',
+      websiteInvalid: 'Enter a valid website URL (e.g. https://example.com)',
+    },
   },
   listingDetail: {
     notFound: 'This listing is not available.',

@@ -9,6 +9,26 @@ import * as publicationsApi from '../../api/publications/public.api';
 
 vi.spyOn(AuthContext, 'useAuth').mockReturnValue({ user: null, isLoading: false, login: vi.fn(), logout: vi.fn(), refreshUser: vi.fn() });
 
+vi.mock('../../hooks/ads/useActiveAds', () => ({
+  useActiveAds: () => ({
+    data: [
+      {
+        id: 'ad1',
+        title: 'Villa Hammamet',
+        imageUrl: 'https://example.com/ad.jpg',
+        linkUrl: 'https://villa-hammamet.tn',
+        placement: 'HOME_STRIP',
+        advertiserName: 'Villa Hammamet',
+        startDate: '2026-08-10T00:00:00.000Z',
+        endDate: '2026-09-10T00:00:00.000Z',
+        impressions: 0,
+        clicks: 0,
+        createdAt: '2026-08-10T00:00:00.000Z',
+      },
+    ],
+  }),
+}));
+
 vi.spyOn(publicationsApi, 'fetchPublishedPublications').mockResolvedValue({
   data: [
     {
@@ -68,6 +88,6 @@ describe('HomePage', () => {
       expect(screen.getAllByText('New Cultural Hub Opens in Tunis').length).toBeGreaterThanOrEqual(1);
     });
     expect(screen.getAllByText('Economic reform package approved by parliament').length).toBeGreaterThanOrEqual(1);
-    expect(screen.getByText('Advertisement')).toBeInTheDocument();
+    expect(screen.getAllByText('Villa Hammamet').length).toBeGreaterThanOrEqual(1);
   });
 });
