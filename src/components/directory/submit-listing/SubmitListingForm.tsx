@@ -16,10 +16,11 @@ export function SubmitListingForm({ onSuccess }: { onSuccess: () => void }) {
   const mutation = useSubmitListing();
   const {
     register,
+    control,
     handleSubmit,
     formState: { errors },
   } = useForm<ListingFormValues>({ resolver: zodResolver(listingFormSchema) });
-  const { field: phoneField } = useController({ name: 'phone' });
+  const { field: phoneField } = useController({ name: 'phone', control });
 
   const duplicate = axios.isAxiosError(mutation.error) && mutation.error.response?.status === 409;
   const firstError = Object.values(errors)[0];

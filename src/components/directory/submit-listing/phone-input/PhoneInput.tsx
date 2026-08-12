@@ -10,9 +10,9 @@ const CODE_MATCH = /^(\+\d+)\s*([\s\S]*)$/;
 
 /** Country dialing-code dropdown (e.g. TUN +216) glued to the number input; emits "+216 71 000 111". */
 export function PhoneInput({ value, onChange }: PhoneInputProps) {
-  const match = value.match(CODE_MATCH);
+  const match = (value ?? '').match(CODE_MATCH);
   const code = match?.[1] ?? '+216';
-  const digits = match?.[2] ?? value;
+  const digits = match?.[2] ?? value ?? '';
   const codes = PHONE_CODES.some((c) => c.code === code)
     ? PHONE_CODES
     : [{ tag: code, code }, ...PHONE_CODES];
