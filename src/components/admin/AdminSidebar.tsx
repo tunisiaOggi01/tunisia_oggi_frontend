@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 const LINKS = [
   { to: '/admin/articles', label: 'components.adminSidebar.articles' },
   { to: '/admin/categories', label: 'components.adminSidebar.categories' },
+  { to: '/admin/listings', label: 'components.adminSidebar.listings' },
   { to: '/admin/ads', label: 'components.adminSidebar.ads' },
   { to: '/admin/newsletter', label: 'components.adminSidebar.newsletter' },
 ];

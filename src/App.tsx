@@ -20,6 +20,7 @@ import { ListingDetailPage } from './pages/directory/listing-detail/ListingDetai
 import { MyListingsPage } from './pages/my-listings/MyListingsPage';
 import { AdminAdsPage } from './pages/admin-ads/AdminAdsPage';
 import { AdminNewsletterPage } from './pages/admin-newsletter/AdminNewsletterPage';
+import { AdminListingsPage } from './pages/admin-listings/AdminListingsPage';
 import { SearchPage } from './pages/search/SearchPage';
 import { RequireAuth } from './components/admin/RequireAuth';
 import { HeardAboutModal } from './components/common/HeardAboutModal';
@@ -63,6 +64,7 @@ export default function App() {
           <Route path="/my-listings" element={<MyListingsPage />} />
           <Route path="/admin/ads" element={<RequireAuth><AdminAdsPage /></RequireAuth>} />
           <Route path="/admin/newsletter" element={<RequireAuth><AdminNewsletterPage /></RequireAuth>} />
+          <Route path="/admin/listings" element={<RequireAuth><AdminListingsPage /></RequireAuth>} />
         </Routes>
       </main>
       {!isAuthPage && <Footer />}
