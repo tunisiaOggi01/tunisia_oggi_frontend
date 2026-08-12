@@ -1,4 +1,14 @@
 import { z } from 'zod';
+import type { BusinessCategory } from '../../../api/listings/types';
+
+/** Category <option> metadata, kept beside the enum it mirrors. */
+export const CATEGORY_OPTIONS: { value: BusinessCategory; label: string }[] = [
+  { value: 'RESTAURANT', label: 'directory.categories.restaurant' },
+  { value: 'LAW', label: 'directory.categories.law' },
+  { value: 'REAL_ESTATE', label: 'directory.categories.realEstate' },
+  { value: 'HEALTH', label: 'directory.categories.health' },
+  { value: 'SERVICES', label: 'directory.categories.services' },
+];
 
 /** Mirrors the backend CreateListingDto: enum categories, 120/2000 length caps, E.164-ish phone. */
 export const listingFormSchema = z.object({

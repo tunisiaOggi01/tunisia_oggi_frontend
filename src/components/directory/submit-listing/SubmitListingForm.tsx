@@ -1,19 +1,11 @@
-import { useForm } from 'react-hook-form';
+import { useForm, useController } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import { useSubmitListing } from '../../../hooks/listings/mutations/useSubmitListing';
 import { FieldError } from './FieldError';
-import { listingFormSchema, type ListingFormValues } from './listing-form.schema';
-import type { BusinessCategory } from '../../../api/listings/types';
-
-const CATEGORY_OPTIONS: { value: BusinessCategory; label: string }[] = [
-  { value: 'RESTAURANT', label: 'directory.categories.restaurant' },
-  { value: 'LAW', label: 'directory.categories.law' },
-  { value: 'REAL_ESTATE', label: 'directory.categories.realEstate' },
-  { value: 'HEALTH', label: 'directory.categories.health' },
-  { value: 'SERVICES', label: 'directory.categories.services' },
-];
+import { PhoneInput } from './phone-input/PhoneInput';
+import { CATEGORY_OPTIONS, listingFormSchema, type ListingFormValues } from './listing-form.schema';
 
 const inputClass = 'w-full border border-gray-300 p-3 text-sm focus:border-brand focus:outline-none';
 const fieldLabel = 'mb-1 block text-xs font-semibold uppercase tracking-wider text-gray-500';
@@ -27,6 +19,7 @@ export function SubmitListingForm({ onSuccess }: { onSuccess: () => void }) {
     handleSubmit,
     formState: { errors },
   } = useForm<ListingFormValues>({ resolver: zodResolver(listingFormSchema) });
+  const { field: phoneField } = useController({ name: 'phone' });
 
   const duplicate = axios.isAxiosError(mutation.error) && mutation.error.response?.status === 409;
   const firstError = Object.values(errors)[0];
@@ -68,7 +61,7 @@ export function SubmitListingForm({ onSuccess }: { onSuccess: () => void }) {
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
         <div>
           <label className={fieldLabel}>{t('submit.phone')}</label>
-          <input {...register('phone')} placeholder={t('submit.phonePlaceholder')} className={inputClass} />
+          <PhoneInput value={phoneField.value} onChange={phoneField.onChange} />
           {errors.phone && <FieldError message={errors.phone.message} />}
         </div>
         <div>
