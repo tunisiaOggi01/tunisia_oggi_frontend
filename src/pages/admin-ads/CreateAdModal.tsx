@@ -13,6 +13,10 @@ const schema = z
     placement: z.enum(['SIDEBAR', 'IN_ARTICLE', 'FOOTER', 'HOME_STRIP']),
     advertiserName: z.string().max(120).optional().or(z.literal('')),
     advertiserEmail: z.email().optional().or(z.literal('')),
+    maxImpressions: z
+      .string()
+      .optional()
+      .refine((v) => !v || /^[1-9]\d*$/.test(v), { message: 'positive integer' }),
     startDate: z.string().min(1),
     endDate: z.string().min(1),
   })
@@ -27,6 +31,9 @@ export function CreateAdModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
   const {
     register,
     handleSubmit,
+    watch,
+    setValue,
+    reset,
     formState: { errors },
   } = useForm<AdFormValues>({ resolver: zodResolver(schema) });
 
@@ -42,9 +49,11 @@ export function CreateAdModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
       placement: values.placement,
       advertiserName: values.advertiserName || undefined,
       advertiserEmail: values.advertiserEmail || undefined,
+      maxImpressions: values.maxImpressions ? Number(values.maxImpressions) : undefined,
       startDate: new Date(values.startDate).toISOString(),
       endDate: new Date(values.endDate).toISOString(),
     });
+    reset();
     onClose();
   }
 
@@ -61,7 +70,7 @@ export function CreateAdModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
           </button>
         </div>
 
-        <AdsFormFields register={register} errors={errors} />
+        <AdsFormFields register={register} errors={errors} watch={watch} setValue={setValue} />
 
         {isDateError && <p className="mt-3 text-sm text-red-600">{t('admin.ads.formDateError')}</p>}
         {create.isError && !isDateError && (

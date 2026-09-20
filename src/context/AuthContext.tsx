@@ -1,8 +1,10 @@
-import { createContext, useContext, useEffect, useState, useCallback, type ReactNode } from 'react';
+import { createContext, useContext, useEffect, useState, useCallback, useRef, type ReactNode } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { login as loginRequest, logoutRequest, fetchCurrentUser } from '../api/auth/auth.api';
 import type { AuthUser } from '../api/auth/types';
-import { setCsrfToken } from '../api/client';
+import { apiClient, setCsrfToken } from '../api/client';
+
+const TOKEN_REFRESH_MS = 14 * 60 * 1000;
 
 interface AuthContextValue {
   user: AuthUser | null;
@@ -19,6 +21,29 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  function clearRefreshTimer() {
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+      timerRef.current = null;
+    }
+  }
+
+  function startRefreshTimer() {
+    clearRefreshTimer();
+    timerRef.current = setInterval(async () => {
+      try {
+        const res = await apiClient.post('/auth/refresh');
+        const newCsrf = res.data?.csrfToken;
+        if (newCsrf) setCsrfToken(newCsrf);
+      } catch {
+        clearRefreshTimer();
+        setCsrfToken(null);
+        setUser(null);
+      }
+    }, TOKEN_REFRESH_MS);
+  }
 
   const refreshUser = useCallback(async () => {
     try {
@@ -37,6 +62,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       fetchCurrentUser()
         .then((u) => {
           setUser(u);
+          startRefreshTimer();
           if (!u.profileCompleted) {
             navigate('/admin/complete-profile', { replace: true });
           } else if (redirect) {
@@ -50,19 +76,26 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       return;
     }
     fetchCurrentUser()
-      .then(setUser)
+      .then((u) => {
+        setUser(u);
+        if (u) startRefreshTimer();
+      })
       .catch(() => setUser(null))
       .finally(() => setIsLoading(false));
+
+    return () => clearRefreshTimer();
   }, []);
 
   async function login(email: string, password: string): Promise<AuthUser> {
     const { user: loggedInUser, csrfToken } = await loginRequest(email, password);
     setCsrfToken(csrfToken);
     setUser(loggedInUser);
+    startRefreshTimer();
     return loggedInUser;
   }
 
   async function logout() {
+    clearRefreshTimer();
     await logoutRequest();
     setCsrfToken(null);
     setUser(null);

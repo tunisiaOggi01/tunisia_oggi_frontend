@@ -24,6 +24,13 @@ export function AdminDashboardPage() {
           <h2 className="mt-3 font-serif text-lg font-bold text-gray-800">{t('admin.dashboard.categories')}</h2>
           <p className="mt-1 text-sm text-gray-500">{t('admin.dashboard.categoriesDesc')}</p>
         </Link>
+        <Link to="/admin/users"
+          className="rounded-sm border border-gray-200 p-6 transition-all hover:border-brand hover:shadow-sm"
+        >
+          <span className="material-symbols-outlined text-3xl text-brand">people</span>
+          <h2 className="mt-3 font-serif text-lg font-bold text-gray-800">{t('admin.dashboard.users')}</h2>
+          <p className="mt-1 text-sm text-gray-500">{t('admin.dashboard.usersDesc')}</p>
+        </Link>
       </div>
     </main>
   );

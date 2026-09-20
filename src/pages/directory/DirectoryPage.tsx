@@ -2,8 +2,10 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useListings } from '../../hooks/listings/useListings';
+import { useAuth } from '../../context/AuthContext';
 import { ListingCard } from '../../components/listings/ListingCard';
 import { PageMeta } from '../../components/seo/PageMeta';
+import { toCategoryKey } from '../../utils/categoryKey';
 import type { BusinessCategory } from '../../api/listings/types';
 
 const CATEGORY_FILTERS: BusinessCategory[] = [
@@ -17,6 +19,7 @@ const CATEGORY_FILTERS: BusinessCategory[] = [
 /** Public business directory: server-side category chips over a grid of approved listing cards. */
 export function DirectoryPage() {
   const { t } = useTranslation();
+  const { user } = useAuth();
   const [category, setCategory] = useState<BusinessCategory | undefined>(undefined);
   const { data, isLoading } = useListings({ category });
 
@@ -34,13 +37,15 @@ export function DirectoryPage() {
           <h1 className="font-display text-headline-lg text-gray-900">{t('directory.title')}</h1>
           <p className="mt-2 text-body-md text-gray-500">{t('directory.subtitle')}</p>
         </div>
-        <Link
-          to="/directory/add"
-          className="inline-flex items-center gap-2 bg-brand px-4 py-3 text-xs font-semibold uppercase tracking-widest text-white transition-colors hover:brightness-110"
-        >
-          <span className="material-symbols-outlined text-[16px]">add_business</span>
-          {t('directory.addBusiness')}
-        </Link>
+        {user && user.role !== 'VISITOR' && (
+          <Link
+            to="/directory/add"
+            className="inline-flex items-center gap-2 bg-brand px-4 py-3 text-xs font-semibold uppercase tracking-widest text-white transition-colors hover:brightness-110"
+          >
+            <span className="material-symbols-outlined text-[16px]">add_business</span>
+            {t('directory.addBusiness')}
+          </Link>
+        )}
       </div>
 
       <div className="mb-6 flex flex-wrap gap-2">
@@ -54,7 +59,7 @@ export function DirectoryPage() {
             onClick={() => setCategory(c === category ? undefined : c)}
             className={chipClass(c === category)}
           >
-            {t(`directory.categories.${c.toLowerCase()}`)}
+            {t(`directory.categories.${toCategoryKey(c)}`)}
           </button>
         ))}
       </div>

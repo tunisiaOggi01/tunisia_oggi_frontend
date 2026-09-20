@@ -4,6 +4,7 @@ import {
   fetchAdminPublications,
   deletePublication,
 } from '../../api/publications/admin.api';
+import { fetchMyReactions } from '../../api/publications/public.api';
 import { useAuth } from '../../context/AuthContext';
 
 /** Wraps the admin dashboard's stats + article-list + delete-mutation into one hook. */
@@ -35,6 +36,16 @@ export function useMyPublications() {
   return useQuery({
     queryKey: ['publications', 'mine'],
     queryFn: () => fetchAdminPublications({ authorId: user!.id, pageSize: 50 }),
+    enabled: !!user,
+  });
+}
+
+/** Fetches the current authenticated user's reactions. */
+export function useMyReactions() {
+  const { user } = useAuth();
+  return useQuery({
+    queryKey: ['publications', 'myReactions'],
+    queryFn: () => fetchMyReactions(),
     enabled: !!user,
   });
 }

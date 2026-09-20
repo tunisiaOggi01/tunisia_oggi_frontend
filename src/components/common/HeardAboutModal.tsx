@@ -33,6 +33,17 @@ export function HeardAboutModal({ onClose }: { onClose: () => void }) {
     }
   }
 
+  async function handleSkip() {
+    setSaving(true);
+    try {
+      await updateHeardAbout('skipped');
+      await refreshUser();
+      onClose();
+    } catch {
+      setSaving(false);
+    }
+  }
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4">
       <div className="w-full max-w-md rounded-sm bg-white p-8 shadow-xl">
@@ -55,7 +66,7 @@ export function HeardAboutModal({ onClose }: { onClose: () => void }) {
           ))}
         </div>
         <div className="mt-6 flex gap-3">
-          <button onClick={onClose} className="flex-1 rounded-sm border border-gray-300 px-4 py-3 text-sm font-semibold text-gray-500 transition-all hover:bg-gray-50">
+          <button onClick={handleSkip} className="flex-1 rounded-sm border border-gray-300 px-4 py-3 text-sm font-semibold text-gray-500 transition-all hover:bg-gray-50">
             {t('components.heardAbout.skip')}
           </button>
           <button onClick={handleSubmit} disabled={!selected || saving}

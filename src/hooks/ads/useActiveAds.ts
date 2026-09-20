@@ -7,5 +7,7 @@ export function useActiveAds(placement: AdPlacement, limit: number) {
   return useQuery({
     queryKey: ['ads', 'active', placement, limit],
     queryFn: () => fetchActiveAds(placement, limit),
+    staleTime: 0,
+    refetchOnMount: true,
   });
 }

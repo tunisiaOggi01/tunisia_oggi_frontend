@@ -35,7 +35,7 @@ describe('AdminCategoriesPage', () => {
     expect(screen.getByText('1,248')).toBeInTheDocument();
   });
 
-  it('deletes a category when the delete action is clicked', async () => {
+  it('deletes a category when the delete action is confirmed', async () => {
     const user = userEvent.setup();
     renderPage();
 
@@ -43,7 +43,12 @@ describe('AdminCategoriesPage', () => {
     await user.click(screen.getByLabelText('Delete Politics'));
 
     await waitFor(() => {
-      expect(deleteSpy).toHaveBeenCalledWith('c2');
+      expect(screen.getByText('Delete Category')).toBeInTheDocument();
+    });
+    await user.click(screen.getByText('Delete'));
+
+    await waitFor(() => {
+      expect(deleteSpy).toHaveBeenCalledWith('c2', expect.anything());
     });
   });
 });

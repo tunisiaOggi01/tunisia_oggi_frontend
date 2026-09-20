@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { formatDate } from '../../../utils/formatDate';
+import { toCategoryKey } from '../../../utils/categoryKey';
 import type { BusinessListing, ListingStatus } from '../../../api/listings/types';
 
 /** Review table: business, category, contact, submitted date, status and approve/reject/delete actions. */
@@ -39,7 +40,7 @@ export function ListingsTable({
           {listings.map((l) => (
             <tr key={l.id} className="border-b border-gray-100 last:border-0">
               <td className="px-4 py-3 font-semibold text-gray-800">{l.businessName}</td>
-              <td className="px-4 py-3 text-gray-600">{t(`directory.categories.${l.category.toLowerCase()}`)}</td>
+              <td className="px-4 py-3 text-gray-600">{t(`directory.categories.${toCategoryKey(l.category)}`)}</td>
               <td className="hidden px-4 py-3 text-gray-500 md:table-cell">
                 <p>{l.phone}</p>
                 <p>{l.email}</p>

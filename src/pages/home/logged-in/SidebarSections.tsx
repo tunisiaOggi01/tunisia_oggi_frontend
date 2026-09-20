@@ -2,13 +2,15 @@ import type { Publication } from '../../../api/publications/types';
 import { useTranslation } from 'react-i18next';
 import { AdSlot } from '../../../components/ads/AdSlot';
 import { NewsletterForm } from '../../../components/newsletter/NewsletterForm';
+import { ServicesList } from '../../../components/listings/ServicesList';
 
-/** Trending Now (numbered 1-3 with view counts) + Editor's Picks + Subscribe promo, with the sidebar ad slot. */
+/** Trending Now (numbered 1-3 with view counts) + Editor's Picks + services + Subscribe promo, with the sidebar ad slot. */
 export function SidebarSections({ trending }: { trending: Publication[] }) {
   const { t } = useTranslation();
   return (
     <div className="space-y-8">
       <AdSlot placement="SIDEBAR" />
+      <ServicesList />
       <section className="border border-gray-200 bg-gray-50 p-4">
         <h3 className="flex items-center justify-between border-b border-gray-400 pb-2 text-sm font-semibold uppercase tracking-widest">
           {t('home.sidebar.trendingNow')}

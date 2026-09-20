@@ -1,14 +1,22 @@
-import { useQueryClient } from '@tanstack/react-query';
-import { deleteCategory as deleteCategoryRequest } from '../../api/categories/categories.api';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import {
+  createCategory as createCategoryRequest,
+  deleteCategory as deleteCategoryRequest,
+} from '../../api/categories/categories.api';
 
 /** Wraps category write operations and the cache invalidation that follows them. */
 export function useCategoryMutations() {
   const queryClient = useQueryClient();
 
-  async function deleteCategory(id: string) {
-    await deleteCategoryRequest(id);
-    queryClient.invalidateQueries({ queryKey: ['categories'] });
-  }
+  const createCategory = useMutation({
+    mutationFn: createCategoryRequest,
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['categories'] }),
+  });
 
-  return { deleteCategory };
+  const deleteCategory = useMutation({
+    mutationFn: deleteCategoryRequest,
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['categories'] }),
+  });
+
+  return { createCategory, deleteCategory };
 }

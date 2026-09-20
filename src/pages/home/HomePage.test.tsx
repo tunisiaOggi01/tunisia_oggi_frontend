@@ -6,6 +6,7 @@ import { HomePage } from './HomePage';
 import { ToastProvider } from '../../components/common/Toast';
 import * as AuthContext from '../../context/AuthContext';
 import * as publicationsApi from '../../api/publications/public.api';
+import * as listingsApi from '../../api/listings/public.api';
 
 vi.spyOn(AuthContext, 'useAuth').mockReturnValue({ user: null, isLoading: false, login: vi.fn(), logout: vi.fn(), refreshUser: vi.fn() });
 
@@ -67,6 +68,39 @@ vi.spyOn(publicationsApi, 'fetchPublishedPublications').mockResolvedValue({
   pageSize: 5,
 });
 
+vi.spyOn(listingsApi, 'fetchApprovedListings').mockResolvedValue([
+  {
+    id: 'l1',
+    businessName: 'Trattoria Roma',
+    category: 'RESTAURANT',
+    description: 'Cucina italiana autentica nel cuore di Tunisi.',
+    phone: '+216 71 111 222',
+    email: 'info@trattoriaroma.tn',
+    website: null,
+    status: 'APPROVED',
+    submittedAt: '2026-07-01T00:00:00.000Z',
+    views: 12,
+    phoneClicks: 3,
+    emailClicks: 1,
+    websiteClicks: 0,
+  },
+  {
+    id: 'l2',
+    businessName: 'Studio Legale Milano',
+    category: 'LAW',
+    description: null,
+    phone: '+216 98 765 432',
+    email: 'contact@studiomilano.tn',
+    website: null,
+    status: 'APPROVED',
+    submittedAt: '2026-07-01T00:00:00.000Z',
+    views: 5,
+    phoneClicks: 0,
+    emailClicks: 2,
+    websiteClicks: 0,
+  },
+]);
+
 function renderHomePage() {
   const queryClient = new QueryClient({ defaultOptions: { queries: { retry: false } } });
   return render(
@@ -89,5 +123,31 @@ describe('HomePage', () => {
     });
     expect(screen.getAllByText('Economic reform package approved by parliament').length).toBeGreaterThanOrEqual(1);
     expect(screen.getAllByText('Villa Hammamet').length).toBeGreaterThanOrEqual(1);
+  });
+
+  it('renders the directory preview with approved listings and a link to the full annuario', async () => {
+    renderHomePage();
+
+    await waitFor(() => {
+      expect(screen.getByText('Trattoria Roma')).toBeInTheDocument();
+    });
+    expect(screen.getByText('Studio Legale Milano')).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'View all' })).toHaveAttribute('href', '/directory');
+  });
+
+  it('shows the services section in the sidebar when the user is logged in', async () => {
+    vi.spyOn(AuthContext, 'useAuth').mockReturnValueOnce({
+      user: { id: 'u1', email: 'reader@example.com', username: 'reader', role: 'VISITOR' },
+      isLoading: false,
+      login: vi.fn(),
+      logout: vi.fn(),
+      refreshUser: vi.fn(),
+    });
+
+    renderHomePage();
+
+    await waitFor(() => {
+      expect(screen.getByText('Trattoria Roma')).toBeInTheDocument();
+    });
   });
 });

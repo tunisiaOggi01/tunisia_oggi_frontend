@@ -2,9 +2,8 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { register as registerRequest } from '../../api/auth/auth.api';
-import { setCsrfToken } from '../../api/client';
 
-/** Account creation — on success redirects to profile completion. */
+/** Account creation — on success redirects to login. */
 export function AdminRegisterPage() {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -18,9 +17,8 @@ export function AdminRegisterPage() {
     e.preventDefault();
     setError(null);
     try {
-      const { csrfToken } = await registerRequest(email, username, password);
-      setCsrfToken(csrfToken);
-      navigate('/admin/complete-profile');
+      await registerRequest(email, username, password);
+      navigate('/admin/login');
     } catch (err) {
       setError(err instanceof Error ? err.message : t('admin.register.failed'));
     }

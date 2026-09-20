@@ -6,8 +6,8 @@ export function Footer() {
   const { t } = useTranslation();
   return (
     <footer className="border-t border-gray-200 bg-white py-8">
-      <div className="mx-auto mb-8 max-w-7xl px-6">
-        <AdSlot placement="FOOTER" />
+      <div className="mx-auto mb-8 flex max-w-7xl justify-center px-6">
+        <AdSlot placement="FOOTER" limit={3} />
       </div>
       <div className="mx-auto flex max-w-7xl flex-col items-center gap-8 px-6 md:flex-row md:justify-between">
         <div className="flex flex-col items-center gap-2 md:items-start">

@@ -17,6 +17,9 @@ export interface Advertisement {
   endDate: string;
   impressions: number;
   clicks: number;
+  maxImpressions: number | null;
+  remainingImpressions: number | null;
+  budgetExhausted: boolean;
   createdAt: string;
   status: AdStatus;
 }
@@ -40,4 +43,38 @@ export interface CreateAdPayload {
   advertiserEmail?: string;
   startDate: string;
   endDate: string;
+  maxImpressions?: number;
+}
+
+/** Payload for PATCH /admin/ads/:id — all fields optional for partial update. */
+export interface UpdateAdPayload {
+  title?: string;
+  imageUrl?: string;
+  linkUrl?: string;
+  placement?: AdPlacement;
+  advertiserName?: string;
+  advertiserEmail?: string;
+  startDate?: string;
+  endDate?: string;
+  maxImpressions?: number;
+}
+
+/** A single audit log entry for ad mutations. */
+export interface AdLog {
+  id: string;
+  adminName: string;
+  adminEmail: string;
+  action: 'CREATE' | 'UPDATE' | 'DELETE';
+  adTitle: string;
+  advertisementId: string | null;
+  changes: Record<string, { from: unknown; to: unknown }> | null;
+  createdAt: string;
+}
+
+/** Paginated ad logs response. */
+export interface AdLogPage {
+  data: AdLog[];
+  total: number;
+  page: number;
+  pageSize: number;
 }

@@ -42,9 +42,9 @@ export function useCreateArticleForm(onCreated: () => void, onClose: () => void,
     return () => { if (previewUrl) URL.revokeObjectURL(previewUrl); };
   }, [previewUrl]);
 
-  /** Auto-save draft on idle. When editing, updates without changing status. */
+  /** Auto-save draft on idle. Requires title and categoryId. */
   useEffect(() => {
-    if (!title.trim() && !body.trim()) return;
+    if (!title.trim() || !categoryId) return;
     if (timerRef.current) clearTimeout(timerRef.current);
     timerRef.current = setTimeout(() => {
       const payload = { title, categoryId, body, featuredImageUrl: imageUrl ?? undefined };
@@ -55,7 +55,7 @@ export function useCreateArticleForm(onCreated: () => void, onClose: () => void,
       }
     }, DEBOUNCE_MS);
     return () => { if (timerRef.current) clearTimeout(timerRef.current); };
-  }, [title, body, imageUrl]);
+  }, [title, body, imageUrl, categoryId]);
 
   function handleImageChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];

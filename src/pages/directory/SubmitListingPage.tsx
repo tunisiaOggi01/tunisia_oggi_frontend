@@ -14,6 +14,10 @@ export function SubmitListingPage() {
     return <Navigate to="/admin/login?redirect=/directory/add" replace />;
   }
 
+  if (user.role === 'VISITOR') {
+    return <Navigate to="/directory" replace />;
+  }
+
   if (submitted) {
     return (
       <main className="mx-auto max-w-xl px-4 py-16 text-center">

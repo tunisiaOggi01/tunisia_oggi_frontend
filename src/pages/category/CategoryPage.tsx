@@ -3,6 +3,8 @@ import { Link, useParams } from 'react-router-dom';
 import { usePublishedArticles } from '../../hooks/publications/usePublishedArticles';
 import { useInfiniteScroll } from '../../hooks/common/useInfiniteScroll';
 import { useTranslation } from 'react-i18next';
+import { AdSlot } from '../../components/ads/AdSlot';
+import { ServicesList } from '../../components/listings/ServicesList';
 
 type Tab = 'all' | 'recent' | 'archive';
 
@@ -108,6 +110,8 @@ export function CategoryPage() {
               </ul>
             </div>
 
+            <ServicesList />
+
             <div className="bg-brand p-6 text-white">
               <h3 className="font-headline text-headline-md mb-3">{t('category.newsletterHeading', { slug: capitalize(slug ?? '') })}</h3>
               <p className="text-body-md mb-5 opacity-90">{t('category.newsletterText', { slug })}</p>
@@ -121,9 +125,7 @@ export function CategoryPage() {
               </div>
             </div>
 
-            <div className="h-64 bg-gray-100 flex items-center justify-center text-gray-500 border border-gray-200">
-              <span className="text-label-sm uppercase opacity-50">{t('category.advertisement')}</span>
-            </div>
+            <AdSlot placement="SIDEBAR" />
           </aside>
         </div>
       )}

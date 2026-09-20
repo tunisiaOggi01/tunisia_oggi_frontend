@@ -1,5 +1,5 @@
 import { apiClient } from '../client';
-import type { AdPlacement, AdStats, Advertisement, CreateAdPayload } from './types';
+import type { AdLogPage, AdPlacement, AdStats, Advertisement, CreateAdPayload, UpdateAdPayload } from './types';
 
 export interface AdminAdsQuery {
   placement?: AdPlacement;
@@ -35,4 +35,16 @@ export async function createAd(payload: CreateAdPayload): Promise<Advertisement>
 /** DELETE /admin/ads/:id — hard delete, 204. */
 export async function deleteAd(id: string): Promise<void> {
   await apiClient.delete(`/admin/ads/${id}`);
+}
+
+/** PATCH /admin/ads/:id — partial update of ad fields. */
+export async function updateAd(id: string, payload: UpdateAdPayload): Promise<Advertisement> {
+  const res = await apiClient.patch(`/admin/ads/${id}`, payload);
+  return res.data;
+}
+
+/** GET /admin/ads/logs — paginated audit log of ad mutations. */
+export async function fetchAdLogs(query: { page?: number; pageSize?: number } = {}): Promise<AdLogPage> {
+  const res = await apiClient.get('/admin/ads/logs', { params: query });
+  return res.data;
 }

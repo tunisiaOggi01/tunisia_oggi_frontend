@@ -6,7 +6,7 @@ export async function login(email: string, password: string): Promise<{ user: Au
   return res.data;
 }
 
-export async function register(email: string, username: string, password: string): Promise<{ user: AuthUser; csrfToken: string }> {
+export async function register(email: string, username: string, password: string): Promise<{ user: AuthUser }> {
   const res = await apiClient.post('/auth/register', { email, username, password });
   return res.data;
 }
@@ -45,4 +45,21 @@ export async function refreshSession(): Promise<{ csrfToken: string }> {
 
 export async function logoutRequest(): Promise<void> {
   await apiClient.post('/auth/logout');
+}
+
+/** PATCH /auth/settings/username — changes the current user's username. */
+export async function changeUsername(username: string): Promise<AuthUser> {
+  const res = await apiClient.patch('/auth/settings/username', { username });
+  return res.data;
+}
+
+/** PATCH /auth/settings/email — changes the current user's email. */
+export async function changeEmail(email: string): Promise<AuthUser> {
+  const res = await apiClient.patch('/auth/settings/email', { email });
+  return res.data;
+}
+
+/** PATCH /auth/settings/password — changes password (requires current password). */
+export async function changePassword(currentPassword: string, newPassword: string): Promise<void> {
+  await apiClient.patch('/auth/settings/password', { currentPassword, newPassword });
 }

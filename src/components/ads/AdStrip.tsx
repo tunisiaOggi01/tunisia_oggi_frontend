@@ -9,7 +9,7 @@ function StripCard({ ad }: { ad: Advertisement }) {
   const { t } = useTranslation();
   const track = useAdEvent();
   const ref = useRef<HTMLDivElement>(null);
-  useImpressionOnce(ref, () => {
+  useImpressionOnce(ref, ad.id, () => {
     void track.mutate({ id: ad.id, event: 'impression' });
   });
 

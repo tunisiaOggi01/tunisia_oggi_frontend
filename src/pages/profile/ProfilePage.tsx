@@ -3,7 +3,7 @@ import { Link, Navigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../context/AuthContext';
 import { updateProfile } from '../../api/auth/auth.api';
-import { useMyPublications } from '../../hooks/publications/useAdminArticles';
+import { useMyPublications, useMyReactions } from '../../hooks/publications/useAdminArticles';
 
 type Tab = 'articles' | 'reacted';
 
@@ -12,7 +12,9 @@ export function ProfilePage() {
   const { t, i18n } = useTranslation();
   const { user, refreshUser } = useAuth();
   const { data: pubsData } = useMyPublications();
+  const { data: reactionsData } = useMyReactions();
   const articles = (pubsData?.data ?? []).filter((a) => a.status === 'PUBLISHED');
+  const reactions = reactionsData ?? [];
   const [tab, setTab] = useState<Tab>('articles');
   const [description, setDescription] = useState(user?.description ?? '');
   const [saving, setSaving] = useState(false);
@@ -129,10 +131,34 @@ export function ProfilePage() {
                 ))}
               </div>
             ) : (
-              <div className="flex flex-col items-center justify-center py-20 text-center opacity-40">
-                <span className="material-symbols-outlined text-6xl">history</span>
-                <p className="mt-4 text-xs font-semibold uppercase tracking-widest">{t('profile.noInteractions')}</p>
-                <p className="mt-2 text-xs text-gray-500">{t('profile.interactionsDesc')}</p>
+              <div className="space-y-4 p-6">
+                {reactions.length === 0 && (
+                  <div className="flex flex-col items-center justify-center py-20 text-center opacity-40">
+                    <span className="material-symbols-outlined text-6xl">history</span>
+                    <p className="mt-4 text-xs font-semibold uppercase tracking-widest">{t('profile.noInteractions')}</p>
+                    <p className="mt-2 text-xs text-gray-500">{t('profile.interactionsDesc')}</p>
+                  </div>
+                )}
+                {reactions.map((r) => (
+                  <div key={r.id} className="group flex items-center gap-4 border-b border-gray-100 pb-4 last:border-0">
+                    {r.publication.featuredImageUrl && (
+                      <div className="h-20 w-20 shrink-0 bg-gray-100">
+                        <img src={r.publication.featuredImageUrl} alt="" className="h-full w-full object-cover" />
+                      </div>
+                    )}
+                    <div className="flex-1">
+                      <div className="mb-1 flex items-start justify-between">
+                        <span className="text-[10px] font-bold uppercase tracking-widest text-brand">{r.publication.category.name}</span>
+                        <span className="rounded-full bg-red-100 px-2 py-0.5 text-[10px] font-bold text-red-800">{r.type}</span>
+                      </div>
+                      <Link to={`/article/${r.publication.slug}`}
+                        className="font-headline text-base leading-tight transition-colors group-hover:text-brand">{r.publication.title}</Link>
+                      <p className="text-xs text-gray-500">
+                        {t('profile.published', { date: fmtDate(r.createdAt) })}
+                      </p>
+                    </div>
+                  </div>
+                ))}
               </div>
             )}
           </div>

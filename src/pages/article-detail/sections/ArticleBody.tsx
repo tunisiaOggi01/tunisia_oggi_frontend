@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { AdSlot } from '../../../components/ads/AdSlot';
 import type { Publication } from '../../../api/publications/types';
 
 interface Props {
@@ -10,14 +11,28 @@ function textToHtml(text: string): string {
   return escaped.split('\n').filter(Boolean).map((p) => `<p>${p}</p>`).join('\n');
 }
 
-/** Body rendering with paragraph breaks and tag list. */
+function splitParagraphs(html: string): string[] {
+  return html.split('\n');
+}
+
+/** Body rendering with paragraph breaks, in-article ad slot, and tag list. */
 export function ArticleBody({ publication }: Props) {
-  const html = useMemo(() => textToHtml(publication.body), [publication.body]);
+  const paragraphs = useMemo(() => splitParagraphs(textToHtml(publication.body)), [publication.body]);
+  const splitIndex = Math.max(1, Math.ceil(paragraphs.length / 2));
 
   return (
     <>
-      <div className="space-y-6 text-body-lg leading-relaxed text-gray-900"
-        dangerouslySetInnerHTML={{ __html: html }} />
+      <div className="space-y-6 text-body-lg leading-relaxed text-gray-900">
+        {paragraphs.slice(0, splitIndex).map((p, i) => (
+          <div key={i} dangerouslySetInnerHTML={{ __html: p }} />
+        ))}
+        <div className="my-8">
+          <AdSlot placement="IN_ARTICLE" />
+        </div>
+        {paragraphs.slice(splitIndex).map((p, i) => (
+          <div key={splitIndex + i} dangerouslySetInnerHTML={{ __html: p }} />
+        ))}
+      </div>
 
       {publication.tags.length > 0 && (
         <div className="mt-8 flex flex-wrap gap-2 border-t border-gray-200 pt-6">

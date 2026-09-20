@@ -1,12 +1,15 @@
 import { Link } from 'react-router-dom';
 import { usePublishedArticles } from '../../../hooks/publications/usePublishedArticles';
+import { useAbility } from '../../../hooks/auth/useAbility';
 import { PostComposer } from './PostComposer';
 import { SidebarSections } from './SidebarSections';
+import { AdStrip } from '../../../components/ads/AdStrip';
 import { useTranslation } from 'react-i18next';
 
 /** Logged-in homepage: composer, personalized feed, trending sidebar. */
 export function LoggedInHomePage() {
   const { t } = useTranslation();
+  const ability = useAbility();
   const { data } = usePublishedArticles({ pageSize: 10 });
   const articles = data?.pages.flatMap((p) => p.data) ?? [];
   const trending = [...articles].sort((a, b) => b.views - a.views);
@@ -16,7 +19,9 @@ export function LoggedInHomePage() {
   return (
     <main className="mx-auto grid w-full max-w-7xl grid-cols-12 gap-6  px-4 py-8 md:px-8">
       <div className="col-span-12 space-y-8 lg:col-span-8">
-        <PostComposer />
+        {ability.can('create', 'Publication') && <PostComposer />}
+
+        <AdStrip />
 
         <section>
           <div className="mb-4 flex items-baseline justify-between border-b-2 border-gray-900 pb-2">

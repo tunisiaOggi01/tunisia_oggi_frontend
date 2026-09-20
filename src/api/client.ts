@@ -2,7 +2,7 @@ import axios from 'axios';
 
 /** Shared axios instance: cross-site cookies enabled, CSRF header attached to mutating requests. */
 export const apiClient = axios.create({
-  baseURL: import.meta.env.VITE_API_URL ?? 'http://localhost:3000',
+  baseURL: import.meta.env.VITE_API_URL ?? 'http://localhost:4000',
   withCredentials: true,
 });
 

@@ -1,5 +1,6 @@
-import type { FieldErrors, UseFormRegister } from 'react-hook-form';
+import type { FieldErrors, UseFormRegister, UseFormSetValue, UseFormWatch } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { AdImagePicker } from '../../../components/uploads/AdImagePicker';
 
 export type AdFormValues = {
   title: string;
@@ -10,6 +11,7 @@ export type AdFormValues = {
   advertiserEmail?: string;
   startDate: string;
   endDate: string;
+  maxImpressions?: string;
 };
 
 const inputClass = 'w-full border border-gray-300 p-2 text-sm focus:border-brand focus:outline-none';
@@ -20,9 +22,15 @@ const wrapClass = 'space-y-3';
 export function AdsFormFields({
   register,
   errors,
+  watch,
+  setValue,
+  disableStartDate = false,
 }: {
   register: UseFormRegister<AdFormValues>;
   errors: FieldErrors<AdFormValues>;
+  watch: UseFormWatch<AdFormValues>;
+  setValue: UseFormSetValue<AdFormValues>;
+  disableStartDate?: boolean;
 }) {
   const { t } = useTranslation();
   void errors;
@@ -35,7 +43,7 @@ export function AdsFormFields({
       </div>
       <div>
         <label className={labelClass}>{t('admin.ads.formImageUrl')}</label>
-        <input {...register('imageUrl')} className={inputClass} placeholder="https://…" />
+        <AdImagePicker value={watch('imageUrl') ?? ''} onUrlChange={(url) => setValue('imageUrl', url, { shouldValidate: true })} />
       </div>
       <div>
         <label className={labelClass}>{t('admin.ads.formLinkUrl')}</label>
@@ -63,12 +71,27 @@ export function AdsFormFields({
       <div className="grid grid-cols-2 gap-3">
         <div>
           <label className={labelClass}>{t('admin.ads.formStartDate')}</label>
-          <input type="date" {...register('startDate')} className={inputClass} />
+          <input
+            type="date"
+            {...register('startDate')}
+            disabled={disableStartDate}
+            className={disableStartDate ? `${inputClass} bg-gray-50 text-gray-500 cursor-not-allowed` : inputClass}
+          />
         </div>
         <div>
           <label className={labelClass}>{t('admin.ads.formEndDate')}</label>
           <input type="date" {...register('endDate')} className={inputClass} />
         </div>
+      </div>
+      <div>
+        <label className={labelClass}>{t('admin.ads.formBudget')}</label>
+        <input
+          type="number"
+          min={1}
+          {...register('maxImpressions')}
+          className={inputClass}
+          placeholder="∞"
+      />
       </div>
     </div>
   );

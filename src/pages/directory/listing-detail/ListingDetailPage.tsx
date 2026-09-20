@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useListingDetail } from '../../../hooks/listings/useListingDetail';
 import { useTrackListingClick } from '../../../hooks/listings/mutations/useTrackListingClick';
 import type { ListingAction } from '../../../api/listings/types';
+import { toCategoryKey } from '../../../utils/categoryKey';
 
 /** Public listing detail page: fires a click metric before the user leaves for a contact channel. */
 export function ListingDetailPage() {
@@ -46,7 +47,7 @@ export function ListingDetailPage() {
         <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
           <div>
             <p className="text-xs font-bold uppercase tracking-widest text-brand">
-              {t(`directory.categories.${listing.category.toLowerCase()}`)}
+              {t(`directory.categories.${toCategoryKey(listing.category)}`)}
             </p>
             <h1 className="mt-2 font-display text-headline-lg text-gray-900">{listing.businessName}</h1>
             <p className="mt-1 text-sm text-gray-400">{t('listingDetail.views', { n: listing.views })}</p>

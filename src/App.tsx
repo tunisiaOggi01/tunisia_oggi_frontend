@@ -14,6 +14,7 @@ import { AdminCompleteProfilePage } from './pages/admin-complete-profile/AdminCo
 import { AdminArticlesPage } from './pages/admin-articles/AdminArticlesPage';
 import { AdminCategoriesPage } from './pages/admin-categories/AdminCategoriesPage';
 import { ProfilePage } from './pages/profile/ProfilePage';
+import { SettingsPage } from './pages/settings/SettingsPage';
 import { DirectoryPage } from './pages/directory/DirectoryPage';
 import { SubmitListingPage } from './pages/directory/SubmitListingPage';
 import { ListingDetailPage } from './pages/directory/listing-detail/ListingDetailPage';
@@ -21,7 +22,9 @@ import { MyListingsPage } from './pages/my-listings/MyListingsPage';
 import { AdminAdsPage } from './pages/admin-ads/AdminAdsPage';
 import { AdminNewsletterPage } from './pages/admin-newsletter/AdminNewsletterPage';
 import { AdminListingsPage } from './pages/admin-listings/AdminListingsPage';
+import { AdminUsersPage } from './pages/admin-users/AdminUsersPage';
 import { SearchPage } from './pages/search/SearchPage';
+import { NotFoundPage } from './pages/not-found/NotFoundPage';
 import { RequireAuth } from './components/admin/RequireAuth';
 import { HeardAboutModal } from './components/common/HeardAboutModal';
 import { useAuth } from './context/AuthContext';
@@ -56,7 +59,9 @@ export default function App() {
           <Route path="/admin" element={<RequireAuth><AdminDashboardPage /></RequireAuth>} />
           <Route path="/admin/articles" element={<RequireAuth><AdminArticlesPage /></RequireAuth>} />
           <Route path="/admin/categories" element={<RequireAuth><AdminCategoriesPage /></RequireAuth>} />
+          <Route path="/admin/users" element={<RequireAuth><AdminUsersPage /></RequireAuth>} />
           <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/settings" element={<SettingsPage />} />
           <Route path="/directory" element={<DirectoryPage />} />
           <Route path="/search" element={<SearchPage />} />
           <Route path="/directory/add" element={<SubmitListingPage />} />
@@ -65,6 +70,7 @@ export default function App() {
           <Route path="/admin/ads" element={<RequireAuth><AdminAdsPage /></RequireAuth>} />
           <Route path="/admin/newsletter" element={<RequireAuth><AdminNewsletterPage /></RequireAuth>} />
           <Route path="/admin/listings" element={<RequireAuth><AdminListingsPage /></RequireAuth>} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>
       {!isAuthPage && <Footer />}

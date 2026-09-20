@@ -30,7 +30,7 @@ export function AdminLoginPage() {
     }
   }
 
-  const apiUrl = import.meta.env.VITE_API_URL ?? 'http://localhost:3000';
+  const apiUrl = import.meta.env.VITE_API_URL ?? 'http://localhost:4000';
 
   return (
     <main className="flex min-h-[calc(100vh-4rem)] flex-col md:flex-row">

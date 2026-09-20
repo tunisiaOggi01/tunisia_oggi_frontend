@@ -2,16 +2,18 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { NewsletterBox } from '../NewsletterBox';
 import { AdSlot } from '../../../components/ads/AdSlot';
+import { ServicesList } from '../../../components/listings/ServicesList';
 import { formatDate } from '../../../utils/formatDate';
 import type { Publication } from '../../../api/publications/types';
 
-/** Homepage right rail: newsletter signup, numbered trending list, and the sidebar ad slot. */
+/** Homepage right rail: newsletter signup, services from the annuario, numbered trending list, and the sidebar ad slot. */
 export function HomeSidebar({ trending }: { trending: Publication[] }) {
   const { i18n } = useTranslation();
 
   return (
     <aside className="space-y-8 md:col-span-4">
       <NewsletterBox />
+      <ServicesList />
       <div className="space-y-6">
         {trending.map((article, idx) => (
           <Link

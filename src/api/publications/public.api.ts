@@ -41,3 +41,16 @@ export async function removeReaction(id: string): Promise<ReactionResult> {
   const res = await apiClient.delete(`/publications/${id}/react`);
   return res.data;
 }
+
+export interface MyReaction {
+  id: string;
+  type: string;
+  createdAt: string;
+  publication: Publication;
+}
+
+/** GET /publications/me/reactions — all reactions by the current user. */
+export async function fetchMyReactions(): Promise<MyReaction[]> {
+  const res = await apiClient.get('/publications/me/reactions');
+  return res.data;
+}

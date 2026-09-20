@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import type { Publication } from '../../../api/publications/types';
+import { AdSlot } from '../../../components/ads/AdSlot';
 import { useTranslation } from 'react-i18next';
 import { NewsletterForm } from '../../../components/newsletter/NewsletterForm';
 
@@ -30,6 +31,8 @@ export function ArticleSidebar({ mostRead }: Props) {
           ))}
         </div>
       </div>
+
+      <AdSlot placement="SIDEBAR" />
 
       <div className="bg-brand p-6 text-white">
         <h3 className="mb-2 font-headline text-headline-md">{t('articleDetail.sidebar.morningBrief')}</h3>
