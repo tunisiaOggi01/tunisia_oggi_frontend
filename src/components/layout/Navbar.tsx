@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../context/AuthContext';
 import { SearchPopup } from './search/SearchPopup';
 import { UserDropdown } from './UserDropdown';
+import { LanguageSwitcher } from './LanguageSwitcher';
 
 const CATEGORIES_KEYS = ['national', 'politics', 'community', 'culture', 'economy'] as const;
 
@@ -52,14 +53,17 @@ export function Navbar() {
             {t('nav.directory')}
           </Link>}
           {user ? <UserDropdown /> : (
-            <div className="flex items-center gap-2">
-              <Link to="/admin/register"
-                className="border border-brand px-3 py-2.5 h-[34px] text-xs font-semibold text-brand transition-all hover:bg-brand hover:text-white active:scale-95"
-              >{t('nav.signup')}</Link>
-              <Link to="/admin/login"
-                className="bg-brand px-4 py-2.5 h-[34px] text-xs font-semibold text-white transition-all hover:opacity-90 active:scale-95"
-              >{t('nav.login')}</Link>
-            </div>
+            <>
+              <LanguageSwitcher />
+              <div className="flex items-center gap-2">
+                <Link to="/admin/register"
+                  className="border border-brand px-3 py-2.5 h-[34px] text-xs font-semibold text-brand transition-all hover:bg-brand hover:text-white active:scale-95"
+                >{t('nav.signup')}</Link>
+                <Link to="/admin/login"
+                  className="bg-brand px-4 py-2.5 h-[34px] text-xs font-semibold text-white transition-all hover:opacity-90 active:scale-95"
+                >{t('nav.login')}</Link>
+              </div>
+            </>
           )}
         </div>
       </div>
