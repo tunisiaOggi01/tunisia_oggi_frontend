@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
 import type { Publication } from '../../api/publications/types';
 import { useTranslation } from 'react-i18next';
+import { formatDate } from '../../utils/formatDate';
+import { useCategoryName } from '../../hooks/categories/useCategoryName';
 
 function readTime(body: string) {
   return Math.max(1, Math.ceil(body.split(' ').length / 200));
@@ -8,7 +10,8 @@ function readTime(body: string) {
 
 /** Compact article preview: image, category tag, title, date + read time. Used in grids and related-article lists. */
 export function ArticleCard({ publication }: { publication: Publication }) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const categoryName = useCategoryName();
   return (
     <article className="group">
       <Link to={`/article/${publication.slug}`}>
@@ -22,7 +25,7 @@ export function ArticleCard({ publication }: { publication: Publication }) {
           </div>
         )}
         <p className="mt-3 text-xs font-semibold uppercase tracking-wider text-brand">
-          {publication.category.name}
+          {categoryName(publication.category)}
         </p>
         <h3 className="mt-1 font-serif text-xl font-bold leading-snug text-gray-900 group-hover:underline">
           {publication.title}
@@ -30,7 +33,7 @@ export function ArticleCard({ publication }: { publication: Publication }) {
       </Link>
       <p className="mt-2 text-xs text-gray-500">
         {publication.publishedAt
-          ? `${new Date(publication.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })} • ${t('components.articleCard.minRead', { n: readTime(publication.body) })}`
+          ? `${formatDate(publication.publishedAt, i18n.language)} • ${t('components.articleCard.minRead', { n: readTime(publication.body) })}`
           : ''}
       </p>
     </article>

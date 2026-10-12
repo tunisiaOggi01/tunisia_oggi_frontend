@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import type { Publication } from '../../../api/publications/types';
 import { AdSlot } from '../../../components/ads/AdSlot';
 import { useTranslation } from 'react-i18next';
+import { formatDate } from '../../../utils/formatDate';
 import { NewsletterForm } from '../../../components/newsletter/NewsletterForm';
 
 interface Props {
@@ -10,7 +11,7 @@ interface Props {
 
 /** Right sidebar: Most Read ranking list + newsletter signup CTA. */
 export function ArticleSidebar({ mostRead }: Props) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   return (
     <aside className="lg:col-span-4 space-y-6">
       <div className="border border-gray-200 bg-white p-6">
@@ -25,7 +26,7 @@ export function ArticleSidebar({ mostRead }: Props) {
                 {article.title}
               </h4>
               <p className="mt-1 text-caption text-gray-500">
-                {article.publishedAt ? new Date(article.publishedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : ''}
+                {article.publishedAt ? formatDate(article.publishedAt, i18n.language, { month: 'short', day: 'numeric' }) : ''}
               </p>
             </Link>
           ))}

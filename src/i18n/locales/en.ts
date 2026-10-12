@@ -1,7 +1,7 @@
 export const en = {
   nav: {
     logo: 'Tunisia Oggi',
-    categories: { national: 'National', politics: 'Politics', community: 'Community', culture: 'Culture', economy: 'Economy' },
+    categories: { national: 'National', politics: 'Politics', community: 'Community', culture: 'Culture', economy: 'Economy', environment: 'Environment' },
     createArticle: 'Create Article',
     login: 'Log In',
     signup: 'Sign Up',

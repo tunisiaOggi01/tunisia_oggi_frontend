@@ -3,6 +3,8 @@ import { Link, useParams } from 'react-router-dom';
 import { usePublishedArticles } from '../../hooks/publications/usePublishedArticles';
 import { useInfiniteScroll } from '../../hooks/common/useInfiniteScroll';
 import { useTranslation } from 'react-i18next';
+import { formatDate } from '../../utils/formatDate';
+import { useCategoryName } from '../../hooks/categories/useCategoryName';
 import { AdSlot } from '../../components/ads/AdSlot';
 import { ServicesList } from '../../components/listings/ServicesList';
 
@@ -14,7 +16,8 @@ function capitalize(slug: string) {
 
 /** Category page with All/Recent/Archive tabs, horizontal article cards, trending sidebar, and infinite scroll. */
 export function CategoryPage() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const categoryName = useCategoryName();
   const { slug } = useParams<{ slug: string }>();
   const [tab, setTab] = useState<Tab>('all');
   const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } = usePublishedArticles({
@@ -71,7 +74,7 @@ export function CategoryPage() {
                   </div>
                 )}
                 <div className="md:w-2/3 flex flex-col justify-center">
-                  <span className="text-label-sm text-brand uppercase mb-1">{article.category.name}</span>
+                  <span className="text-label-sm text-brand uppercase mb-1">{categoryName(article.category)}</span>
                   <h2 className="font-headline text-headline-md transition-colors group-hover:text-brand mb-1">
                     {article.title}
                   </h2>
@@ -80,9 +83,7 @@ export function CategoryPage() {
                     <span>{t('category.publishedBy', { author: article.author.username })}</span>
                     <span>&bull;</span>
                     <span>{article.publishedAt
-                      ? new Date(article.publishedAt).toLocaleDateString('en-US', {
-                          month: 'long', day: 'numeric', year: 'numeric',
-                        })
+                      ? formatDate(article.publishedAt, i18n.language)
                       : ''}</span>
                   </div>
                 </div>

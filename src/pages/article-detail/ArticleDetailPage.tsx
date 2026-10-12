@@ -13,10 +13,12 @@ import { CommentSection } from '../../components/comments/CommentSection';
 import { PageMeta } from '../../components/seo/PageMeta';
 import type { Publication } from '../../api/publications/types';
 import { useTranslation } from 'react-i18next';
+import { useCategoryName } from '../../hooks/categories/useCategoryName';
 
 /** Full article view matching the editorial design: breadcrumb, hero, body, sidebar, related. */
 export function ArticleDetailPage() {
   const { t } = useTranslation();
+  const categoryName = useCategoryName();
   const { slug } = useParams<{ slug: string }>();
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -49,7 +51,7 @@ export function ArticleDetailPage() {
       <nav aria-label="Breadcrumb" className="mb-4 flex items-center gap-2 text-label-sm text-gray-500">
         <Link to="/" className="hover:text-brand transition-colors">{t('articleDetail.home')}</Link>
         <span className="material-symbols-outlined text-[16px]">chevron_right</span>
-        <Link to={`/category/${pub.category.slug}`} className="hover:text-brand transition-colors">{pub.category.name}</Link>
+        <Link to={`/category/${pub.category.slug}`} className="hover:text-brand transition-colors">{categoryName(pub.category)}</Link>
         <span className="material-symbols-outlined text-[16px]">chevron_right</span>
         <span className="font-bold text-brand">{t('articleDetail.article')}</span>
       </nav>
@@ -57,7 +59,7 @@ export function ArticleDetailPage() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         <article className="lg:col-span-8">
           <header className="mb-8">
-            <span className="mb-4 block text-label-sm uppercase tracking-widest text-brand">{pub.category.name}</span>
+            <span className="mb-4 block text-label-sm uppercase tracking-widest text-brand">{categoryName(pub.category)}</span>
             <h1 className="mb-6 font-headline text-headline-lg-mobile leading-tight md:text-headline-lg text-gray-900">{pub.title}</h1>
             <ArticleActionBar publication={pub} reactionCount={pub.reactionCount ?? 0} readTime={readTime}
               onReaction={handleReaction} onEdit={() => setEditArticle(publication)} onDelete={handleDelete} />
@@ -66,7 +68,7 @@ export function ArticleDetailPage() {
             <figure className="mb-8">
               <img src={pub.featuredImageUrl} alt="" className="aspect-video w-full object-cover" />
               <figcaption className="mt-3 border-l-2 border-brand pl-4 text-caption italic text-gray-500">
-                {t('articleDetail.imageCaption', { category: pub.category.name })}
+                {t('articleDetail.imageCaption', { category: categoryName(pub.category) })}
               </figcaption>
             </figure>
           )}
@@ -80,7 +82,7 @@ export function ArticleDetailPage() {
         <section className="mt-12 border-t-4 border-gray-900 pt-8">
           <div className="mb-6 flex items-end justify-between">
             <h2 className="font-headline text-headline-md text-gray-900">{t('articleDetail.relatedArticles')}</h2>
-            <Link to={`/category/${pub.category.slug}`} className="text-label-sm text-brand hover:underline">{t('articleDetail.viewAllInCategory', { category: pub.category.name })}</Link>
+            <Link to={`/category/${pub.category.slug}`} className="text-label-sm text-brand hover:underline">{t('articleDetail.viewAllInCategory', { category: categoryName(pub.category) })}</Link>
           </div>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
             {related.map((article) => (
@@ -88,7 +90,7 @@ export function ArticleDetailPage() {
                 {article.featuredImageUrl && <div className="mb-4 aspect-[4/3] overflow-hidden">
                   <img src={article.featuredImageUrl} alt="" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
                 </div>}
-                <span className="mb-2 block text-label-sm uppercase text-brand">{article.category.name}</span>
+                <span className="mb-2 block text-label-sm uppercase text-brand">{categoryName(article.category)}</span>
                 <h3 className="font-headline text-[20px] leading-tight text-gray-900 transition-colors group-hover:text-brand">{article.title}</h3>
               </Link>
             ))}

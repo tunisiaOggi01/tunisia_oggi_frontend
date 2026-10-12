@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { formatDate } from '../../utils/formatDate';
 import { useAuth } from '../../context/AuthContext';
 import { CommentForm } from './CommentForm';
 import type { Comment } from '../../api/comments/types';
@@ -13,7 +14,7 @@ interface Props {
 }
 
 export function CommentItem({ comment, onReply, onEdit, onDelete, isAdding }: Props) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { user } = useAuth();
   const [showReply, setShowReply] = useState(false);
   const [editing, setEditing] = useState(false);
@@ -39,7 +40,7 @@ export function CommentItem({ comment, onReply, onEdit, onDelete, isAdding }: Pr
         <div className="flex-1">
           <div className="flex items-baseline gap-2">
             <span className="text-sm font-semibold text-gray-900">{comment.user.username}</span>
-            <span className="text-xs text-gray-400">{new Date(comment.createdAt).toLocaleDateString()}</span>
+            <span className="text-xs text-gray-400">{formatDate(comment.createdAt, i18n.language, { month: 'short', day: 'numeric', year: 'numeric' })}</span>
           </div>
           {editing ? (
             <div className="mt-1">
@@ -102,7 +103,7 @@ export function CommentItem({ comment, onReply, onEdit, onDelete, isAdding }: Pr
               <div className="flex-1">
                 <div className="flex items-baseline gap-2">
                   <span className="text-sm font-semibold text-gray-900">{reply.user.username}</span>
-                  <span className="text-xs text-gray-400">{new Date(reply.createdAt).toLocaleDateString()}</span>
+                  <span className="text-xs text-gray-400">{formatDate(reply.createdAt, i18n.language, { month: 'short', day: 'numeric', year: 'numeric' })}</span>
                 </div>
                 <p className="mt-1 text-sm text-gray-700">{reply.body}</p>
               </div>

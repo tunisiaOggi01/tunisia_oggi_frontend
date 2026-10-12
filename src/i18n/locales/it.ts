@@ -3,7 +3,7 @@ import type { Translations } from './en';
 export const it: Translations = {
   nav: {
     logo: 'Tunisia Oggi',
-    categories: { national: 'Nazionale', politics: 'Politica', community: 'Comunità', culture: 'Cultura', economy: 'Economia' },
+    categories: { national: 'Nazionale', politics: 'Politica', community: 'Comunità', culture: 'Cultura', economy: 'Economia', environment: 'Ambiente' },
     createArticle: 'Crea articolo',
     login: 'Accedi',
     signup: 'Registrati',

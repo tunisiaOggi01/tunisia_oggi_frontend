@@ -1,11 +1,13 @@
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { useCategoryName } from '../../../hooks/categories/useCategoryName';
 import { AdSlot } from '../../../components/ads/AdSlot';
 import type { CategoryCount } from '../../../api/search/search.api';
 
 /** Search-page right rail: category hit counts (server-side) above the sidebar ad slot. */
 export function SearchSidebar({ counts }: { counts: CategoryCount[] }) {
   const { t } = useTranslation();
+  const categoryName = useCategoryName();
 
   return (
     <aside className="space-y-6 lg:col-span-4">
@@ -18,7 +20,7 @@ export function SearchSidebar({ counts }: { counts: CategoryCount[] }) {
             {counts.map((c) => (
               <li key={c.id} className="flex items-center justify-between text-sm">
                 <Link to={`/category/${c.slug}`} className="text-gray-700 hover:text-brand">
-                  {c.name}
+                  {categoryName(c)}
                 </Link>
                 <span className="text-xs text-gray-400">{c.count}</span>
               </li>

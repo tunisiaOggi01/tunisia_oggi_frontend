@@ -6,12 +6,14 @@ import { createPublication, updatePublication } from '../../../api/publications/
 import { uploadImage } from '../../../api/upload/upload.api';
 import type { PublicationStatus } from '../../../api/publications/types';
 import { useTranslation } from 'react-i18next';
+import { useCategoryName } from '../../../hooks/categories/useCategoryName';
 
 const DEBOUNCE_MS = 2000;
 
 /** Quick draft composer with auto-save debounce, image upload, and draft/publish actions. */
 export function PostComposer() {
   const { t } = useTranslation();
+  const categoryName = useCategoryName();
   const { user } = useAuth();
   const { data: categories } = useCategories();
   const queryClient = useQueryClient();
@@ -113,7 +115,7 @@ export function PostComposer() {
           <select value={categoryId} onChange={(e) => setCategoryId(e.target.value)}
             className="rounded-sm border border-gray-300 bg-white px-3 py-1.5 text-xs font-semibold text-gray-600 focus:border-brand focus:ring-0">
             <option value="">{t('postComposer.category')}</option>
-            {categories?.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
+            {categories?.map((c) => <option key={c.id} value={c.id}>{categoryName(c)}</option>)}
           </select>
           {displayImage && (
             <div className="relative inline-flex items-center gap-1 rounded-sm bg-gray-100 px-2 py-1 text-xs text-gray-600">

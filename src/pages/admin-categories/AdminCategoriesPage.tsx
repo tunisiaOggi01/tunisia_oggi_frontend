@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { formatNumber } from '../../utils/formatNumber';
 import { useCategories } from '../../hooks/categories/useCategories';
 import { useCategoryMutations } from '../../hooks/categories/useCategoryMutations';
 import { AdminSidebar } from '../../components/admin/AdminSidebar';
@@ -7,7 +8,7 @@ import { CreateCategoryModal } from './CreateCategoryModal';
 
 /** Admin CMS category management screen: table of categories with a colored dot, slug, count, and delete action. */
 export function AdminCategoriesPage() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { data: categories } = useCategories();
   const { deleteCategory } = useCategoryMutations();
   const [showCreate, setShowCreate] = useState(false);
@@ -59,7 +60,7 @@ export function AdminCategoriesPage() {
                 </td>
                 <td className="px-4 py-3 font-mono text-xs text-gray-500">/{category.slug}</td>
                 <td className="px-4 py-3">
-                  <span className="rounded bg-gray-100 px-2 py-1">{category.articleCount.toLocaleString()}</span>
+                  <span className="rounded bg-gray-100 px-2 py-1">{formatNumber(category.articleCount, i18n.language)}</span>
                 </td>
                 <td className="px-4 py-3">
                   <button

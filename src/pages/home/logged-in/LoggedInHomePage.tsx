@@ -5,10 +5,12 @@ import { PostComposer } from './PostComposer';
 import { SidebarSections } from './SidebarSections';
 import { AdStrip } from '../../../components/ads/AdStrip';
 import { useTranslation } from 'react-i18next';
+import { useCategoryName } from '../../../hooks/categories/useCategoryName';
 
 /** Logged-in homepage: composer, personalized feed, trending sidebar. */
 export function LoggedInHomePage() {
   const { t } = useTranslation();
+  const categoryName = useCategoryName();
   const ability = useAbility();
   const { data } = usePublishedArticles({ pageSize: 10 });
   const articles = data?.pages.flatMap((p) => p.data) ?? [];
@@ -42,7 +44,7 @@ export function LoggedInHomePage() {
                       className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                     <div className="absolute left-4 top-4 bg-brand px-2 py-0.5 text-[10px] font-semibold uppercase tracking-widest text-white">
-                      {article.category.name}
+                      {categoryName(article.category)}
                     </div>
                   </div>
                 )}
@@ -53,7 +55,7 @@ export function LoggedInHomePage() {
                 <div className="mt-4 flex items-center gap-2 text-xs text-gray-500">
                   <span>{t('home.loggedIn.publishedBy', { author: article.author.username })}</span>
                   <span className="h-1 w-1 rounded-full bg-gray-300" />
-                  <span>{t('home.loggedIn.minRead', { n: Math.max(1, Math.ceil(article.body.split(' ').length / 200)) })} mins read</span>
+                  <span>{t('home.loggedIn.minRead', { n: Math.max(1, Math.ceil(article.body.split(' ').length / 200)) })}</span>
                 </div>
               </Link>
             ))}
@@ -73,7 +75,7 @@ export function LoggedInHomePage() {
                       <h4 className="text-sm font-semibold leading-snug transition-colors group-hover:text-brand">
                         {article.title}
                       </h4>
-                      <span className="text-xs uppercase text-gray-500">{article.category.name}</span>
+                      <span className="text-xs uppercase text-gray-500">{categoryName(article.category)}</span>
                     </div>
                   </Link>
                 ))}

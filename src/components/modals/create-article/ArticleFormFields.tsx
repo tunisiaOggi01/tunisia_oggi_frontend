@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import { useCategoryName } from '../../../hooks/categories/useCategoryName';
 import { useCategories } from '../../../hooks/categories/useCategories';
 import type { useCreateArticleForm } from './useCreateArticleForm';
 import type { UploadStatus } from './useCreateArticleForm';
@@ -17,6 +18,7 @@ function uploadLabels(t: (key: string) => string): Record<UploadStatus, string> 
 /** Renders the modal's title/category/image/content fields with plain text body. */
 export function ArticleFormFields(form: FormState) {
   const { t } = useTranslation();
+  const categoryName = useCategoryName();
   const labels = uploadLabels(t);
   const { data: categories } = useCategories();
 
@@ -31,7 +33,7 @@ export function ArticleFormFields(form: FormState) {
       <select id="article-category" value={form.categoryId} onChange={(e) => form.setCategoryId(e.target.value)}
         className="mt-1 w-full rounded border border-gray-300 px-3 py-2">
         <option value="">{t('components.articleForm.selectCategory')}</option>
-        {categories?.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
+        {categories?.map((c) => <option key={c.id} value={c.id}>{categoryName(c)}</option>)}
       </select>
 
       <label className="mt-4 block text-xs font-semibold uppercase text-gray-500">{t('components.articleForm.featuredImage')}</label>

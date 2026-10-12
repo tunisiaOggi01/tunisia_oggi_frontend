@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { formatNumber } from '../../utils/formatNumber';
+import { formatDate } from '../../utils/formatDate';
+import { useCategoryName } from '../../hooks/categories/useCategoryName';
 import { useAuth } from '../../context/AuthContext';
 import { updateProfile } from '../../api/auth/auth.api';
 import { useMyPublications, useMyReactions } from '../../hooks/publications/useAdminArticles';
@@ -10,6 +13,7 @@ type Tab = 'articles' | 'reacted';
 /** Profile page with user info form and activity feed (my articles / reacted). */
 export function ProfilePage() {
   const { t, i18n } = useTranslation();
+  const categoryName = useCategoryName();
   const { user, refreshUser } = useAuth();
   const { data: pubsData } = useMyPublications();
   const { data: reactionsData } = useMyReactions();
@@ -30,8 +34,7 @@ export function ProfilePage() {
   }
 
   function fmtDate(d: string) {
-    return new Date(d).toLocaleDateString(i18n.language === 'en' ? 'en-US' : i18n.language === 'fr' ? 'fr-FR' : 'it-IT',
-      { month: 'short', day: 'numeric', year: 'numeric' });
+    return formatDate(d, i18n.language, { month: 'short', day: 'numeric', year: 'numeric' });
   }
 
   return (
@@ -115,7 +118,7 @@ export function ProfilePage() {
                     )}
                     <div className="flex-1">
                       <div className="mb-1 flex items-start justify-between">
-                        <span className="text-[10px] font-bold uppercase tracking-widest text-brand">{a.category.name}</span>
+                        <span className="text-[10px] font-bold uppercase tracking-widest text-brand">{categoryName(a.category)}</span>
                         <span className="rounded-full bg-green-100 px-2 py-0.5 text-[10px] font-bold text-green-800">PUBLISHED</span>
                       </div>
                       <Link to={`/article/${a.slug}`}
@@ -124,7 +127,7 @@ export function ProfilePage() {
                         {a.publishedAt
                           ? t('profile.published', { date: fmtDate(a.publishedAt) })
                           : t('profile.lastEdited', { date: fmtDate(a.createdAt) })}
-                        {a.status === 'PUBLISHED' && ` • ${t('profile.reads', { n: a.views.toLocaleString() })}`}
+                        {a.status === 'PUBLISHED' && ` • ${t('profile.reads', { n: formatNumber(a.views, i18n.language) })}`}
                       </p>
                     </div>
                   </div>
@@ -148,7 +151,7 @@ export function ProfilePage() {
                     )}
                     <div className="flex-1">
                       <div className="mb-1 flex items-start justify-between">
-                        <span className="text-[10px] font-bold uppercase tracking-widest text-brand">{r.publication.category.name}</span>
+                        <span className="text-[10px] font-bold uppercase tracking-widest text-brand">{categoryName(r.publication.category)}</span>
                         <span className="rounded-full bg-red-100 px-2 py-0.5 text-[10px] font-bold text-red-800">{r.type}</span>
                       </div>
                       <Link to={`/article/${r.publication.slug}`}

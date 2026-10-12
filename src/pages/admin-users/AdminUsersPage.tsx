@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { formatDate } from '../../utils/formatDate';
 import { useUsers } from '../../hooks/users/useUsers';
 import { useUserMutations } from '../../hooks/users/useUserMutations';
 import { AdminSidebar } from '../../components/admin/AdminSidebar';
@@ -8,7 +9,7 @@ const ROLES = ['SUPER_ADMIN', 'EDITOR', 'ADVERTISER', 'VISITOR'] as const;
 
 /** Admin user management screen: table of users with role dropdown and delete action. */
 export function AdminUsersPage() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { data: users } = useUsers();
   const { updateUserRole, deleteUser } = useUserMutations();
   const [deleteTarget, setDeleteTarget] = useState<{ id: string; username: string } | null>(null);
@@ -60,7 +61,7 @@ export function AdminUsersPage() {
                   </select>
                 </td>
                 <td className="px-4 py-3 text-gray-500">
-                  {new Date(user.createdAt).toLocaleDateString()}
+                  {formatDate(user.createdAt, i18n.language, { month: 'short', day: 'numeric', year: 'numeric' })}
                 </td>
                 <td className="px-4 py-3">
                   <button

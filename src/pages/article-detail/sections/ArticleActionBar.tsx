@@ -2,6 +2,7 @@ import { useAuth } from '../../../context/AuthContext';
 import { useAbility } from '../../../hooks/auth/useAbility';
 import type { Publication } from '../../../api/publications/types';
 import { useTranslation } from 'react-i18next';
+import { formatDate } from '../../../utils/formatDate';
 
 interface Props {
   publication: Publication;
@@ -14,7 +15,7 @@ interface Props {
 
 /** Author avatar, name, published date, read time, view count, share/reaction buttons. */
 export function ArticleActionBar({ publication, reactionCount, readTime, onReaction, onEdit, onDelete }: Props) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { user } = useAuth();
   const ability = useAbility();
   const canManage = ability.can('manage', 'all');
@@ -29,7 +30,7 @@ export function ArticleActionBar({ publication, reactionCount, readTime, onReact
       <div>
         <p className="text-label-sm text-gray-900">{t('articleDetail.actionBar.publishedBy', { author: publication.author.username })}</p>
         <p className="text-caption text-gray-500">
-          {t('articleDetail.actionBar.meta', { date: publication.publishedAt ? new Date(publication.publishedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : '', min: readTime, views: publication.views })}
+          {t('articleDetail.actionBar.meta', { date: publication.publishedAt ? formatDate(publication.publishedAt, i18n.language, { month: 'short', day: 'numeric', year: 'numeric' }) : '', min: readTime, views: publication.views })}
         </p>
       </div>
       <div className="ml-auto flex gap-2">

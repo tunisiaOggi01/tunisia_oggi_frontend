@@ -1,5 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { formatDate } from '../../../utils/formatDate';
+import { formatNumber } from '../../../utils/formatNumber';
+import { useCategoryName } from '../../../hooks/categories/useCategoryName';
 import type { PaginatedPublications, Publication } from '../../../api/publications/types';
 import { useAuth } from '../../../context/AuthContext';
 
@@ -19,7 +22,8 @@ interface Props {
 
 /** Search bar + article table with conditional edit/delete actions based on ownership. */
 export function ArticlesTable({ search, onSearchChange, articles, onDelete, onEdit }: Props) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const categoryName = useCategoryName();
   const { user } = useAuth();
   const navigate = useNavigate();
 
@@ -49,15 +53,15 @@ export function ArticlesTable({ search, onSearchChange, articles, onDelete, onEd
             <tr key={article.id} onClick={() => navigate(`/article/${article.slug}`)}
               className="cursor-pointer border-t border-gray-100 hover:bg-gray-50 transition-colors">
               <td className="px-4 py-3 font-medium">{article.title}</td>
-              <td className="px-4 py-3">{article.category.name}</td>
+              <td className="px-4 py-3">{categoryName(article.category)}</td>
               <td className="px-4 py-3">
                 <span className={`rounded px-2 py-1 text-xs font-semibold ${STATUS_STYLES[article.status]}`}>
                   {article.status}
                 </span>
               </td>
-              <td className="px-4 py-3 text-gray-500">{article.views.toLocaleString()}</td>
+              <td className="px-4 py-3 text-gray-500">{formatNumber(article.views, i18n.language)}</td>
               <td className="px-4 py-3">
-                {article.publishedAt ? new Date(article.publishedAt).toLocaleDateString() : '—'}
+                {article.publishedAt ? formatDate(article.publishedAt, i18n.language, { month: 'short', day: 'numeric', year: 'numeric' }) : '—'}
               </td>
               <td className="px-4 py-3" onClick={(e) => e.stopPropagation()}>
                 <div className="flex items-center gap-2">
@@ -83,7 +87,7 @@ export function ArticlesTable({ search, onSearchChange, articles, onDelete, onEd
 
       {articles && (
         <p className="mt-4 text-xs text-gray-500">
-          {t('admin.table.showing', { n: articles.data.length, m: articles.total.toLocaleString() })}
+          {t('admin.table.showing', { n: articles.data.length, m: formatNumber(articles.total, i18n.language) })}
         </p>
       )}
     </>
