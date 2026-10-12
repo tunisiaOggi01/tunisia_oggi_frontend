@@ -6,7 +6,7 @@ import { it } from './locales/it';
 
 i18n.use(initReactI18next).init({
   resources: { en: { translation: en }, fr: { translation: fr }, it: { translation: it } },
-  lng: localStorage.getItem('lang') || 'en',
+  lng: localStorage.getItem('lang') || 'it',
   fallbackLng: 'en',
   interpolation: { escapeValue: false },
 });

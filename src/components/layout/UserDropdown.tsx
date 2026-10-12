@@ -69,7 +69,7 @@ export function UserDropdown() {
           </button>
           <div className="border-t border-gray-100 px-4 py-2">
             <p className="mb-2 text-[10px] font-bold uppercase tracking-wider text-gray-400">{t('common.language')}</p>
-            <LanguageSwitcher className="flex gap-2" itemClassName="flex-1" onSelect={() => setOpen(false)} />
+            <LanguageSwitcher className="w-full" onSelect={() => setOpen(false)} />
           </div>
           <button onClick={handleLogout}
             className="flex w-full items-center gap-3 border-t border-gray-100 px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors">
