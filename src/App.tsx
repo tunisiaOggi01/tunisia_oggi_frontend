@@ -26,6 +26,7 @@ import { AdminUsersPage } from './pages/admin-users/AdminUsersPage';
 import { SearchPage } from './pages/search/SearchPage';
 import { NotFoundPage } from './pages/not-found/NotFoundPage';
 import { RequireAuth } from './components/admin/RequireAuth';
+import { WaitForAuth } from './components/common/WaitForAuth';
 import { HeardAboutModal } from './components/common/HeardAboutModal';
 import { useAuth } from './context/AuthContext';
 
@@ -60,13 +61,13 @@ export default function App() {
           <Route path="/admin/articles" element={<RequireAuth><AdminArticlesPage /></RequireAuth>} />
           <Route path="/admin/categories" element={<RequireAuth><AdminCategoriesPage /></RequireAuth>} />
           <Route path="/admin/users" element={<RequireAuth><AdminUsersPage /></RequireAuth>} />
-          <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/settings" element={<SettingsPage />} />
+          <Route path="/profile" element={<WaitForAuth><ProfilePage /></WaitForAuth>} />
+          <Route path="/settings" element={<WaitForAuth><SettingsPage /></WaitForAuth>} />
           <Route path="/directory" element={<DirectoryPage />} />
           <Route path="/search" element={<SearchPage />} />
-          <Route path="/directory/add" element={<SubmitListingPage />} />
+          <Route path="/directory/add" element={<WaitForAuth><SubmitListingPage /></WaitForAuth>} />
           <Route path="/directory/:id" element={<ListingDetailPage />} />
-          <Route path="/my-listings" element={<MyListingsPage />} />
+          <Route path="/my-listings" element={<WaitForAuth><MyListingsPage /></WaitForAuth>} />
           <Route path="/admin/ads" element={<RequireAuth><AdminAdsPage /></RequireAuth>} />
           <Route path="/admin/newsletter" element={<RequireAuth><AdminNewsletterPage /></RequireAuth>} />
           <Route path="/admin/listings" element={<RequireAuth><AdminListingsPage /></RequireAuth>} />
